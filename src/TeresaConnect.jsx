@@ -20,6 +20,16 @@ const COLORS = {
   cream: "#FFFCF5",
 };
 
+// Neumorphic Shadow Styles
+const NEUMORPHIC = {
+  shadowInput: "inset 2px 2px 5px #d1c3b8, inset -2px -2px 5px #ffffff",
+  shadowSmall: "3px 3px 7px #d1c3b8, -3px -3px 7px #ffffff",
+  shadowMedium: "5px 5px 12px #d1c3b8, -5px -5px 12px #ffffff",
+  shadowLarge: "8px 8px 16px #d1c3b8, -8px -8px 16px #ffffff",
+  shadowHover: "6px 6px 14px #c5b5aa, -6px -6px 14px #ffffff",
+  shadowActive: "inset 4px 4px 8px #c5b5aa, inset -4px -4px 8px #ffffff",
+};
+
 const PATIENTS = [
   { id: "TRS-0021", name: "Subramani", age: 74, ward: "Geriatric Care", bed: "GC-04", condition: "Post-hip surgery", admitted: "2025-04-01", doctor: "Dr. Meera Nair", prototype: { deviceId: "TERESA-001", model: "v3.2", status: "Active", battery: 87 } },
   { id: "TRS-0034", name: "Rajarajan", age: 81, ward: "ICU", bed: "ICU-07", condition: "Stroke recovery", admitted: "2025-03-28", doctor: "Dr. Suresh Iyer", prototype: { deviceId: "TERESA-002", model: "v3.2", status: "Active", battery: 62 } },
@@ -158,43 +168,64 @@ function usePatientSimulations() {
 }
 
 function NavBar({ activePage, setPage }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pages = ["Dashboard", "Monitor", "Patients", "Analytics", "Settings"];
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
   return (
-    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.purple}30`, padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Inter', 'Poppins', sans-serif", boxShadow: "0 2px 12px rgba(55, 25, 49, 0.08)" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.purple}30`, padding: isMobile ? "0 1rem" : "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 60 : 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Inter', 'Poppins', sans-serif", boxShadow: "0 2px 12px rgba(55, 25, 49, 0.08)", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 12 }}>
         <motion.div 
           whileHover={{ scale: 1.1, rotate: 5 }} 
           whileTap={{ scale: 0.95 }}
-          style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${COLORS.beige}, ${COLORS.warning})`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 18, color: COLORS.primary, cursor: "pointer" }}>T</motion.div>
-        <motion.span 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          style={{ color: "#fff", fontWeight: 700, fontSize: 20, letterSpacing: 1.5, fontFamily: "'Georgia', serif" }}>TERESA <span style={{ color: COLORS.beige, fontWeight: 400, fontSize: 14 }}>Connect</span></motion.span>
-        <motion.span 
-          animate={{ opacity: [1, 0.7, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          style={{ fontSize: 11, background: `${COLORS.beige}22`, color: COLORS.beige, padding: "3px 10px", borderRadius: 20, marginLeft: 6, fontWeight: 600 }}>● LIVE</motion.span>
+          style={{ width: isMobile ? 32 : 40, height: isMobile ? 32 : 40, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.beige}, ${COLORS.warning})`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: isMobile ? 14 : 18, color: COLORS.primary, cursor: "pointer" }}>T</motion.div>
+        {!isMobile && (
+          <>
+            <motion.span 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              style={{ color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: 1.5, fontFamily: "'Georgia', serif" }}>TERESA <span style={{ color: COLORS.beige, fontWeight: 400, fontSize: 12 }}>Connect</span></motion.span>
+            <motion.span 
+              animate={{ opacity: [1, 0.7, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{ fontSize: 10, background: `${COLORS.beige}22`, color: COLORS.beige, padding: "2px 8px", borderRadius: 20, marginLeft: 4, fontWeight: 600 }}>● LIVE</motion.span>
+          </>
+        )}
       </div>
-      <div style={{ display: "flex", gap: 4 }}>
+      
+      {isMobile && (
+        <motion.button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{ background: "transparent", color: "#fff", border: "none", fontSize: 20, cursor: "pointer", padding: "8px 12px" }}>
+          ☰
+        </motion.button>
+      )}
+      
+      <div style={{ display: isMobile && !mobileMenuOpen ? "none" : "flex", gap: isMobile ? 2 : 4, width: isMobile ? "100%" : "auto", flexWrap: isMobile ? "wrap" : "nowrap", order: isMobile ? 3 : 2, marginTop: isMobile && mobileMenuOpen ? "0.5rem" : 0 }}>
         {pages.map(p => (
           <motion.button 
             key={p} 
-            whileHover={{ backgroundColor: `${COLORS.accent}10`, scale: 1.02 }} 
+            whileHover={!isMobile ? { backgroundColor: `${COLORS.accent}10`, scale: 1.02 } : {}}
             whileTap={{ scale: 0.98 }}
-            onClick={() => setPage(p)} 
-            style={{ background: activePage === p ? `${COLORS.beige}30` : "transparent", color: activePage === p ? COLORS.beige : "rgba(255,255,255,0.7)", border: activePage === p ? `1px solid ${COLORS.beige}50` : "none", padding: "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: activePage === p ? 600 : 400, fontFamily: "'Inter', sans-serif", transition: "all 0.3s ease" }}>{p}</motion.button>
+            onClick={() => { setPage(p); setMobileMenuOpen(false); }}
+            style={{ background: activePage === p ? `${COLORS.beige}30` : "transparent", color: activePage === p ? COLORS.beige : "rgba(255,255,255,0.7)", border: activePage === p ? `1px solid ${COLORS.beige}50` : "none", padding: isMobile ? "6px 10px" : "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: isMobile ? 11 : 13, fontWeight: activePage === p ? 600 : 400, fontFamily: "'Inter', sans-serif", transition: "all 0.3s ease", flex: isMobile ? "1 1 45%" : "auto" }}>
+            {isMobile ? p.slice(0, 3).toUpperCase() : p}
+          </motion.button>
         ))}
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <motion.div 
-          animate={{ y: [0, -2, 0] }}
-          transition={{ duration: 3, repeat: Infinity }}
-          style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: COLORS.beige, fontFamily: "'Inter', sans-serif" }}>
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: COLORS.success, display: "inline-block", animation: "pulse 2s infinite" }}></span>
-          ICAM Hospital
-        </motion.div>
-      </div>
+      
+      {!isMobile && (
+        <div style={{ display: "flex", alignItems: "center", gap: 16, order: 3 }}>
+          <motion.div 
+            animate={{ opacity: [1, 0.7, 1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: COLORS.beige, fontFamily: "'Inter', sans-serif" }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: COLORS.success, display: "inline-block", animation: "pulse 2s infinite" }}></span>
+            ICAM Hospital
+          </motion.div>
+        </div>
+      )}
     </nav>
   );
 }
@@ -293,7 +324,7 @@ function StatCard({ label, value, sub, color }) {
     <motion.div 
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.98 }}
-      style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 12, padding: "1rem 1.25rem", fontFamily: "'Inter', sans-serif", cursor: "pointer" }}>
+      style={{ background: COLORS.surfaceAlt, border: "none", borderRadius: 16, padding: "1rem 1.25rem", fontFamily: "'Inter', sans-serif", cursor: "pointer", boxShadow: NEUMORPHIC.shadowMedium, transition: "box-shadow 0.3s ease" }}>
       <div style={{ fontSize: 11, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>{label}</div>
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
