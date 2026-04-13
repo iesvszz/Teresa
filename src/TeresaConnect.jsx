@@ -846,13 +846,13 @@ function TeresaDeviceIllustration({ level, stage }) {
   const getLiquidHeight = Math.min(level, 100);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 240, width: "100%" }}>
-      <svg width="300" height="220" viewBox="0 0 300 220" style={{ maxWidth: "100%" }}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%" }}>
+      <svg width="280" height="500" viewBox="0 0 280 500" style={{ maxWidth: "100%", maxHeight: "100%" }}>
         {/* Base/Dock with Wheels */}
-        <rect x="40" y="160" width="220" height="12" rx="6" fill={COLORS.accent} opacity="0.3" />
+        <rect x="30" y="420" width="220" height="12" rx="6" fill={COLORS.accent} opacity="0.3" />
         <motion.circle
-          cx="150"
-          cy="166"
+          cx="140"
+          cy="426"
           r="4"
           fill={COLORS.success}
           animate={{ opacity: [1, 0.5, 1] }}
@@ -864,8 +864,8 @@ function TeresaDeviceIllustration({ level, stage }) {
           <>
             {/* Left Wheel */}
             <motion.circle
-              cx="70"
-              cy="168"
+              cx="50"
+              cy="428"
               r="5"
               fill="transparent"
               stroke={COLORS.accent}
@@ -873,12 +873,12 @@ function TeresaDeviceIllustration({ level, stage }) {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
-            <circle cx="70" cy="168" r="2" fill={COLORS.accent} />
+            <circle cx="50" cy="428" r="2" fill={COLORS.accent} />
             
             {/* Right Wheel */}
             <motion.circle
               cx="230"
-              cy="168"
+              cy="428"
               r="5"
               fill="transparent"
               stroke={COLORS.accent}
@@ -886,35 +886,35 @@ function TeresaDeviceIllustration({ level, stage }) {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
-            <circle cx="230" cy="168" r="2" fill={COLORS.accent} />
+            <circle cx="230" cy="428" r="2" fill={COLORS.accent} />
           </>
         )}
         
         {/* Wheels - Static when not navigating */}
         {stage !== "NAVIGATING" && (
           <>
-            <circle cx="70" cy="168" r="5" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
-            <circle cx="70" cy="168" r="2" fill={COLORS.muted} />
-            <circle cx="230" cy="168" r="5" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
-            <circle cx="230" cy="168" r="2" fill={COLORS.muted} />
+            <circle cx="50" cy="428" r="5" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
+            <circle cx="50" cy="428" r="2" fill={COLORS.muted} />
+            <circle cx="230" cy="428" r="5" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
+            <circle cx="230" cy="428" r="2" fill={COLORS.muted} />
           </>
         )}
 
         {/* Charging Pad Outline */}
-        <rect x="50" y="145" width="200" height="8" rx="4" fill="transparent" stroke={COLORS.accent} strokeWidth="1" opacity="0.5" />
+        <rect x="50" y="400" width="180" height="8" rx="4" fill="transparent" stroke={COLORS.accent} strokeWidth="1" opacity="0.5" />
 
         {/* Main Tank - Outer Container */}
         <g>
-          <rect x="80" y="40" width="120" height="110" rx="8" fill={COLORS.surfaceAlt} stroke={COLORS.accent} strokeWidth="2" />
+          <rect x="60" y="60" width="160" height="330" rx="10" fill={COLORS.surfaceAlt} stroke={COLORS.accent} strokeWidth="2" />
 
           {/* Tank Display/OLED Area */}
-          <rect x="95" y="50" width="90" height="25" rx="4" fill={COLORS.primary} />
+          <rect x="80" y="80" width="120" height="35" rx="4" fill={COLORS.primary} />
           <motion.text
             x="140"
-            y="68"
+            y="105"
             textAnchor="middle"
             fill={COLORS.beige}
-            fontSize="12"
+            fontSize="16"
             fontWeight="bold"
             fontFamily="monospace"
           >
@@ -923,37 +923,37 @@ function TeresaDeviceIllustration({ level, stage }) {
 
           {/* Stage Status */}
           <motion.circle
-            cx="100"
-            cy="92"
-            r="4"
+            cx="75"
+            cy="140"
+            r="5"
             fill={stageColors[stage] || COLORS.muted}
             animate={{ scale: stage === "COLLECTING" || stage === "DISPOSING" || stage === "STERILIZING" ? [1, 1.3, 1] : 1 }}
             transition={{ duration: 0.8, repeat: Infinity }}
           />
-          <text x="110" y="97" fontSize="10" fill={COLORS.muted} fontFamily="'Inter', sans-serif">
+          <text x="90" y="146" fontSize="12" fill={COLORS.muted} fontFamily="'Inter', sans-serif">
             {stage}
           </text>
 
           {/* Liquid Container - Main Collection Tank */}
           <defs>
             <clipPath id="tankClip">
-              <rect x="85" y="85" width="110" height="55" rx="4" />
+              <rect x="75" y="155" width="130" height="200" rx="6" />
             </clipPath>
           </defs>
 
-          <rect x="85" y="85" width="110" height="55" rx="4" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
+          <rect x="75" y="155" width="130" height="200" rx="6" fill="transparent" stroke={COLORS.border} strokeWidth="1" />
 
           {/* Animated Liquid Level */}
           <motion.rect
-            x="85"
-            y={85 + (55 * (1 - getLiquidHeight / 100))}
-            width="110"
-            height={55 * (getLiquidHeight / 100)}
-            rx="4"
+            x="75"
+            y={155 + (200 * (1 - getLiquidHeight / 100))}
+            width="130"
+            height={200 * (getLiquidHeight / 100)}
+            rx="6"
             fill={getFluidColor()}
             opacity="0.6"
             animate={{ 
-              y: stage === "DISPOSING" ? [85 + (55 * (1 - getLiquidHeight / 100)), 135, 85 + (55 * (1 - getLiquidHeight / 100))] : 85 + (55 * (1 - getLiquidHeight / 100))
+              y: stage === "DISPOSING" ? [155 + (200 * (1 - getLiquidHeight / 100)), 280, 155 + (200 * (1 - getLiquidHeight / 100))] : 155 + (200 * (1 - getLiquidHeight / 100))
             }}
             transition={{ 
               duration: stage === "DISPOSING" ? 2 : 0.5, 
@@ -967,27 +967,27 @@ function TeresaDeviceIllustration({ level, stage }) {
           {stage === "COLLECTING" && (
             <>
               <motion.circle
-                cx="110"
-                cy="50"
-                r="2"
+                cx="95"
+                cy="80"
+                r="2.5"
                 fill={COLORS.warning}
-                animate={{ y: [50 - 50, 85] }}
+                animate={{ y: [0, 75] }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.3 }}
               />
               <motion.circle
                 cx="140"
-                cy="50"
-                r="2"
+                cy="80"
+                r="2.5"
                 fill={COLORS.warning}
-                animate={{ y: [50 - 50, 85] }}
+                animate={{ y: [0, 75] }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.1 }}
               />
               <motion.circle
-                cx="170"
-                cy="50"
-                r="2"
+                cx="185"
+                cy="80"
+                r="2.5"
                 fill={COLORS.warning}
-                animate={{ y: [50 - 50, 85] }}
+                animate={{ y: [0, 75] }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
               />
             </>
@@ -1007,9 +1007,9 @@ function TeresaDeviceIllustration({ level, stage }) {
               {/* Main UV Glow Area */}
               <motion.ellipse
                 cx="140"
-                cy="112"
-                rx="45"
-                ry="25"
+                cy="250"
+                rx="55"
+                ry="80"
                 fill="url(#uvGradient)"
                 animate={{ opacity: [0.3, 0.8, 0.3] }}
                 transition={{ duration: 1.2, repeat: Infinity }}
@@ -1017,35 +1017,35 @@ function TeresaDeviceIllustration({ level, stage }) {
               
               {/* UV Light Points Inside */}
               <motion.circle
-                cx="115"
-                cy="100"
-                r="2.5"
+                cx="110"
+                cy="200"
+                r="3"
                 fill="#B19EFF"
-                animate={{ opacity: [0.3, 1, 0.3], r: [2.5, 3.5, 2.5] }}
+                animate={{ opacity: [0.3, 1, 0.3], r: [3, 4, 3] }}
                 transition={{ duration: 1, repeat: Infinity }}
               />
               <motion.circle
                 cx="140"
-                cy="95"
-                r="2.5"
+                cy="180"
+                r="3"
                 fill="#B19EFF"
-                animate={{ opacity: [0.3, 1, 0.3], r: [2.5, 3.5, 2.5] }}
+                animate={{ opacity: [0.3, 1, 0.3], r: [3, 4, 3] }}
                 transition={{ duration: 1, repeat: Infinity, delay: 0.3 }}
               />
               <motion.circle
-                cx="165"
-                cy="100"
-                r="2.5"
+                cx="170"
+                cy="200"
+                r="3"
                 fill="#B19EFF"
-                animate={{ opacity: [0.3, 1, 0.3], r: [2.5, 3.5, 2.5] }}
+                animate={{ opacity: [0.3, 1, 0.3], r: [3, 4, 3] }}
                 transition={{ duration: 1, repeat: Infinity, delay: 0.6 }}
               />
               <motion.circle
                 cx="140"
-                cy="128"
-                r="2.5"
+                cy="290"
+                r="3"
                 fill="#B19EFF"
-                animate={{ opacity: [0.3, 1, 0.3], r: [2.5, 3.5, 2.5] }}
+                animate={{ opacity: [0.3, 1, 0.3], r: [3, 4, 3] }}
                 transition={{ duration: 1, repeat: Infinity, delay: 0.9 }}
               />
             </>
@@ -1055,7 +1055,7 @@ function TeresaDeviceIllustration({ level, stage }) {
           {stage === "NAVIGATING" && (
             <motion.g>
               <motion.path
-                d="M 110 110 L 170 110"
+                d="M 100 280 L 180 280"
                 stroke={COLORS.accent}
                 strokeWidth="2"
                 fill="none"
@@ -1065,7 +1065,7 @@ function TeresaDeviceIllustration({ level, stage }) {
                 strokeDasharray="80"
               />
               <motion.polygon
-                points="170,110 160,105 165,110 160,115"
+                points="180,280 170,275 175,280 170,285"
                 fill={COLORS.accent}
                 animate={{ x: [0, 10, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -1075,24 +1075,24 @@ function TeresaDeviceIllustration({ level, stage }) {
         </g>
 
         {/* Status Labels */}
-        <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill={COLORS.text} fontFamily="'Inter', sans-serif">
+        <text x="140" y="35" textAnchor="middle" fontSize="13" fontWeight="600" fill={COLORS.text} fontFamily="'Inter', sans-serif">
           TERESA Device
         </text>
 
         {/* Level Indicator */}
         <g>
-          <text x="20" y="120" fontSize="9" fill={COLORS.muted} fontFamily="'Inter', sans-serif">
+          <text x="15" y="300" fontSize="10" fill={COLORS.muted} fontFamily="'Inter', sans-serif">
             Level
           </text>
-          <rect x="15" y="130" width="4" height="50" rx="2" fill={COLORS.border} />
+          <rect x="10" y="310" width="5" height="80" rx="2" fill={COLORS.border} />
           <motion.rect
-            x="15"
-            y={130 + (50 * (1 - getLiquidHeight / 100))}
-            width="4"
-            height={50 * (getLiquidHeight / 100)}
+            x="10"
+            y={310 + (80 * (1 - getLiquidHeight / 100))}
+            width="5"
+            height={80 * (getLiquidHeight / 100)}
             rx="2"
             fill={getFluidColor()}
-            animate={{ height: 50 * (getLiquidHeight / 100) }}
+            animate={{ height: 80 * (getLiquidHeight / 100) }}
             transition={{ duration: 0.5 }}
           />
         </g>
@@ -1103,7 +1103,7 @@ function TeresaDeviceIllustration({ level, stage }) {
 
 function PrototypeDiagram({ level, stage }) {
   return (
-    <div style={{ position: "relative", height: 220, width: "100%", borderRadius: 12, overflow: "hidden", background: COLORS.bg }}>
+    <div style={{ position: "relative", height: 550, width: "100%", borderRadius: 12, overflow: "visible", background: COLORS.bg }}>
       <TeresaDeviceIllustration level={level} stage={stage} />
     </div>
   );
@@ -1196,54 +1196,63 @@ function MonitorPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 12, padding: "1.25rem", marginBottom: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 12 }}>Device Information</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12 }}>
+        style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 12, padding: "1.5rem", marginBottom: 16 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 14 }}>Device Information</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
           <motion.div
             whileHover={{ scale: 1.02 }}
             style={{
-              padding: "12px 14px",
+              padding: "14px 16px",
               borderRadius: 10,
               border: `2px solid ${COLORS.accent}`,
               background: `${COLORS.accent}12`,
-              gridColumn: "span 2"
             }}
           >
-            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 4 }}>Device ID</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.accent, fontFamily: "monospace" }}>{deviceInfo.deviceId}</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 6 }}>Device ID</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.accent, fontFamily: "monospace" }}>{deviceInfo.deviceId}</div>
           </motion.div>
           
           <div style={{
-            padding: "12px 14px",
+            padding: "14px 16px",
             borderRadius: 10,
             border: `1px solid ${COLORS.border}`,
             background: COLORS.surface,
           }}>
-            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 4 }}>Model</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.text }}>{deviceInfo.model}</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 6 }}>Model</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.text }}>{deviceInfo.model}</div>
           </div>
-          
+
           <div style={{
-            padding: "12px 14px",
+            padding: "14px 16px",
             borderRadius: 10,
             border: `1px solid ${COLORS.border}`,
             background: COLORS.surface,
           }}>
-            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 4 }}>Device Status</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 6 }}>Device Status</div>
             <motion.div 
               animate={{ opacity: [1, 0.7, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              style={{ fontSize: 13, fontWeight: 700, color: deviceInfo.status === "Active" ? COLORS.success : COLORS.warning, display: "flex", alignItems: "center", gap: 4 }}>
+              style={{ fontSize: 14, fontWeight: 700, color: deviceInfo.status === "Active" ? COLORS.success : COLORS.warning, display: "flex", alignItems: "center", gap: 4 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: deviceInfo.status === "Active" ? COLORS.success : COLORS.warning, display: "inline-block" }}></span>
               {deviceInfo.status}
             </motion.div>
+          </div>
+
+          <div style={{
+            padding: "14px 16px",
+            borderRadius: 10,
+            border: `1px solid ${COLORS.border}`,
+            background: COLORS.surface,
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, marginBottom: 6 }}>Battery Level</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: deviceInfo.battery < 30 ? COLORS.danger : COLORS.success }}>{deviceInfo.battery}%</div>
           </div>
         </div>
       </motion.div>
       
       <StageTimeline stage={patientUnitData.stage} />
       
-      <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 16, marginTop: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: 20, marginTop: 20 }}>
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -1261,8 +1270,8 @@ function MonitorPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount
           style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <motion.div 
             whileHover={{ boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-            style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", flex: 1 }}>
-            <div style={{ fontSize: 12, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12, fontWeight: 600 }}>TERESA Device Visualization</div>
+            style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "2rem", flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ fontSize: 12, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12, fontWeight: 600, width: "100%" }}>TERESA Device Visualization</div>
             <PrototypeDiagram level={patientUnitData.urineLevel} stage={patientUnitData.stage} />
           </motion.div>
           <LogPanel logs={logs} />
