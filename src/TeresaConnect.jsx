@@ -3,31 +3,31 @@ import { motion } from "framer-motion";
 import * as THREE from "three";
 
 const COLORS = {
-  primary: "#371931",
-  accent: "#6B3F5D",
-  success: "#4A9B6B",
-  warning: "#D4A574",
-  danger: "#C85A54",
-  bg: "#F8F6F3",
-  surface: "#FDFBF9",
-  surfaceAlt: "#F5F0EB",
-  border: "rgba(55, 25, 49, 0.1)",
-  text: "#2C1F29",
-  muted: "#8B7D8B",
-  beige: "#E5D4C1",
-  darkBeige: "#7A6B5E",
-  purple: "#371931",
-  cream: "#FFFCF5",
+  primary: "#0a0a0a",
+  accent: "#a855f7",
+  success: "#2ecc71",
+  warning: "#f39c12",
+  danger: "#e74c3c",
+  bg: "#0f0f1e",
+  surface: "#1a1a2e",
+  surfaceAlt: "#16213e",
+  border: "rgba(255, 255, 255, 0.08)",
+  text: "#e0e0e0",
+  muted: "#a0a0a0",
+  beige: "#a855f7",
+  darkBeige: "#9333ea",
+  purple: "#1a1a1a",
+  cream: "#1a1a1a",
 };
 
 // Neumorphic Shadow Styles
 const NEUMORPHIC = {
-  shadowInput: "inset 2px 2px 5px #d1c3b8, inset -2px -2px 5px #ffffff",
-  shadowSmall: "3px 3px 7px #d1c3b8, -3px -3px 7px #ffffff",
-  shadowMedium: "5px 5px 12px #d1c3b8, -5px -5px 12px #ffffff",
-  shadowLarge: "8px 8px 16px #d1c3b8, -8px -8px 16px #ffffff",
-  shadowHover: "6px 6px 14px #c5b5aa, -6px -6px 14px #ffffff",
-  shadowActive: "inset 4px 4px 8px #c5b5aa, inset -4px -4px 8px #ffffff",
+  shadowInput: "inset 1px 1px 3px rgba(0, 0, 0, 0.1), inset -1px -1px 3px rgba(255, 255, 255, 0.5)",
+  shadowSmall: "0px 2px 8px rgba(0, 0, 0, 0.12)",
+  shadowMedium: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+  shadowLarge: "0px 8px 16px rgba(0, 0, 0, 0.18)",
+  shadowHover: "0px 6px 14px rgba(0, 0, 0, 0.2)",
+  shadowActive: "inset 0px 2px 4px rgba(0, 0, 0, 0.1)",
 };
 
 const PATIENTS = [
@@ -41,15 +41,15 @@ const PATIENTS = [
 const STAGES = ["IDLE", "COLLECTING", "THRESHOLD_REACHED", "NAVIGATING", "DISPOSING", "RETURNING", "DOCKED", "STERILIZING", "CYCLE_COMPLETE"];
 
 const stageColors = {
-  IDLE: COLORS.muted,
-  COLLECTING: COLORS.accent,
-  THRESHOLD_REACHED: COLORS.warning,
-  NAVIGATING: "#A78BFA",
-  DISPOSING: COLORS.danger,
-  RETURNING: "#60A5FA",
-  DOCKED: COLORS.success,
-  STERILIZING: "#F472B6",
-  CYCLE_COMPLETE: COLORS.success,
+  IDLE: "#9e9e9e",
+  COLLECTING: "#424242",
+  THRESHOLD_REACHED: "#757575",
+  NAVIGATING: "#616161",
+  DISPOSING: "#4d4d4d",
+  RETURNING: "#5c5c5c",
+  DOCKED: "#2d5a2d",
+  STERILIZING: "#666666",
+  CYCLE_COMPLETE: "#2d5a2d",
 };
 
 const stageIcons = {
@@ -173,7 +173,7 @@ function NavBar({ activePage, setPage }) {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   
   return (
-    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.purple}30`, padding: isMobile ? "0 1rem" : "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 60 : 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Inter', 'Poppins', sans-serif", boxShadow: "0 2px 12px rgba(55, 25, 49, 0.08)", flexWrap: "wrap" }}>
+    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.purple}30`, padding: isMobile ? "0 1rem" : "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 60 : 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Lato', 'Inter', 'Poppins', sans-serif", boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)", flexWrap: "wrap" }}>
       <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 12 }}>
         <motion.div 
           whileHover={{ scale: 1.1, rotate: 5 }} 
@@ -185,7 +185,7 @@ function NavBar({ activePage, setPage }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              style={{ color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: 1.5, fontFamily: "'Georgia', serif" }}>TERESA <span style={{ color: COLORS.beige, fontWeight: 400, fontSize: 12 }}>Connect</span></motion.span>
+              style={{ color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: 1.5, fontFamily: "'Playfair Display', 'Georgia', serif" }}>TERESA <span style={{ color: COLORS.beige, fontWeight: 400, fontSize: 12 }}>Connect</span></motion.span>
             <motion.span 
               animate={{ opacity: [1, 0.7, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -209,7 +209,7 @@ function NavBar({ activePage, setPage }) {
             whileHover={!isMobile ? { backgroundColor: `${COLORS.accent}10`, scale: 1.02 } : {}}
             whileTap={{ scale: 0.98 }}
             onClick={() => { setPage(p); setMobileMenuOpen(false); }}
-            style={{ background: activePage === p ? `${COLORS.beige}30` : "transparent", color: activePage === p ? COLORS.beige : "rgba(255,255,255,0.7)", border: activePage === p ? `1px solid ${COLORS.beige}50` : "none", padding: isMobile ? "6px 10px" : "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: isMobile ? 11 : 13, fontWeight: activePage === p ? 600 : 400, fontFamily: "'Inter', sans-serif", transition: "all 0.3s ease", flex: isMobile ? "1 1 45%" : "auto" }}>
+            style={{ background: activePage === p ? `${COLORS.beige}30` : "transparent", color: activePage === p ? COLORS.beige : "rgba(255,255,255,0.7)", border: activePage === p ? `1px solid ${COLORS.beige}50` : "none", padding: isMobile ? "6px 10px" : "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: isMobile ? 11 : 13, fontWeight: activePage === p ? 600 : 400, fontFamily: "'Lato', 'Inter', sans-serif", transition: "all 0.3s ease", flex: isMobile ? "1 1 45%" : "auto" }}>
             {isMobile ? p.slice(0, 3).toUpperCase() : p}
           </motion.button>
         ))}
@@ -220,7 +220,7 @@ function NavBar({ activePage, setPage }) {
           <motion.div 
             animate={{ opacity: [1, 0.7, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
-            style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: COLORS.beige, fontFamily: "'Inter', sans-serif" }}>
+            style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: COLORS.beige, fontFamily: "'Lato', 'Inter', sans-serif" }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: COLORS.success, display: "inline-block", animation: "pulse 2s infinite" }}></span>
             ICAM Hospital
           </motion.div>
@@ -239,7 +239,7 @@ function UrineMeter({ level, stage }) {
   return (
     <motion.div 
       whileHover={{ boxShadow: `0 8px 24px ${COLORS.accent}20` }}
-      style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", display: "flex", flexDirection: "column", gap: 16, fontFamily: "'Inter', sans-serif" }}>
+      style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", display: "flex", flexDirection: "column", gap: 16, fontFamily: "'Lato', 'Inter', sans-serif" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ color: COLORS.muted, fontSize: 12, textTransform: "uppercase", letterSpacing: 1 }}>Urine Level</span>
         <motion.span 
@@ -265,7 +265,7 @@ function UrineMeter({ level, stage }) {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}
-            style={{ fontSize: 48, fontWeight: 700, color: getColor(), lineHeight: 1, fontFamily: "'Poppins', sans-serif" }}>{Math.round(level)}<span style={{ fontSize: 18, color: COLORS.muted }}>%</span></motion.div>
+            style={{ fontSize: 48, fontWeight: 700, color: getColor(), lineHeight: 1, fontFamily: "'Playfair Display', 'Poppins', sans-serif" }}>{Math.round(level)}<span style={{ fontSize: 18, color: COLORS.muted }}>%</span></motion.div>
           <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 4 }}>~{Math.round(level * 0.03 * 10) / 10}L collected</div>
           <motion.div 
             animate={{ color: level >= 70 ? COLORS.warning : COLORS.muted }}
@@ -289,29 +289,70 @@ function StageTimeline({ stage }) {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
-      <div style={{ fontSize: 12, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 16, fontWeight: 600 }}>Operational Stage</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+      style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "2rem 1.5rem", fontFamily: "'Lato', 'Inter', sans-serif" }}>
+      <div style={{ fontSize: 12, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 24, fontWeight: 600 }}>Operational Stage</div>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 8, justifyContent: "space-between", paddingTop: 8 }}>
         {stageList.map((s, i) => (
           <motion.div 
             key={s} 
             layout
-            style={{ display: "flex", alignItems: "center", flex: 1 }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-              <motion.div 
-                animate={{ 
-                  scale: i === idx ? [1, 1.2, 1] : 1,
-                  boxShadow: i === idx ? [`0 0 12px ${stageColors[s]}`, `0 0 24px ${stageColors[s]}`, `0 0 12px ${stageColors[s]}`] : "none"
-                }}
-                transition={{ duration: 1, repeat: i === idx ? Infinity : 0 }}
-                style={{ width: 28, height: 28, borderRadius: "50%", background: i <= idx ? stageColors[s] : `${COLORS.muted}15`, border: `2px solid ${i <= idx ? stageColors[s] : COLORS.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, transition: "all 0.5s" }}>
-                {i < idx ? <span style={{ color: "#fff", fontSize: 11 }}>✓</span> : <span style={{ color: i <= idx ? "#fff" : COLORS.muted, fontSize: 11, fontWeight: 700 }}>{stageIcons[s]}</span>}
-              </motion.div>
-              <div style={{ fontSize: 9, color: i <= idx ? stageColors[s] : COLORS.muted, marginTop: 4, textAlign: "center", letterSpacing: 0.5, fontWeight: 500 }}>{s.replace(/_/g, " ")}</div>
+            style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 12, flex: 1, minWidth: 0 }}>
+            <motion.div 
+              animate={{ 
+                scale: i === idx ? [1, 1.1, 1] : 1,
+                boxShadow: i === idx ? [`0 4px 16px ${stageColors[s]}40`, `0 8px 24px ${stageColors[s]}60`, `0 4px 16px ${stageColors[s]}40`] : "0 2px 8px rgba(0,0,0,0.06)"
+              }}
+              transition={{ duration: 1, repeat: i === idx ? Infinity : 0 }}
+              style={{ 
+                minWidth: 60, 
+                height: 60, 
+                borderRadius: 14, 
+                background: i <= idx ? `linear-gradient(135deg, ${stageColors[s]}20, ${stageColors[s]}10)` : `${COLORS.muted}08`,
+                border: `1.5px solid ${i <= idx ? `${stageColors[s]}40` : COLORS.border}`,
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "center", 
+                fontSize: 18, 
+                transition: "all 0.5s",
+                position: "relative",
+                overflow: "hidden",
+                flexShrink: 0
+              }}>
+              {/* Glass shine effect */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0))", borderRadius: "14px 14px 0 0", pointerEvents: "none" }}></div>
+              <span style={{ color: i <= idx ? stageColors[s] : COLORS.muted, fontSize: 22, fontWeight: 700, position: "relative", zIndex: 1 }}>
+                {i < idx ? "✓" : stageIcons[s]}
+              </span>
+            </motion.div>
+            <div style={{ 
+              fontSize: 11, 
+              color: i === idx ? "#fff" : i <= idx ? stageColors[s] : COLORS.muted, 
+              textAlign: "center", 
+              letterSpacing: 0.3, 
+              fontWeight: i === idx ? 700 : 500, 
+              minHeight: 50, 
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              lineHeight: 1.3,
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+              position: "relative",
+              paddingBottom: i === idx ? 8 : 0
+            }}>
+              {s.replace(/_/g, " ")}
+              {i === idx && (
+                <motion.div 
+                  layoutId="underline"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.5 }}
+                  style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: "#ffffff", borderRadius: 2, transformOrigin: "center" }}
+                />
+              )}
             </div>
-            {i < stageList.length - 1 && <motion.div 
-              animate={{ background: i < idx ? COLORS.accent : COLORS.border }}
-              style={{ height: 2, flex: "0 0 8px" }}></motion.div>}
           </motion.div>
         ))}
       </div>
@@ -324,14 +365,14 @@ function StatCard({ label, value, sub, color }) {
     <motion.div 
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.98 }}
-      style={{ background: COLORS.surfaceAlt, border: "none", borderRadius: 16, padding: "1rem 1.25rem", fontFamily: "'Inter', sans-serif", cursor: "pointer", boxShadow: NEUMORPHIC.shadowMedium, transition: "box-shadow 0.3s ease" }}>
+      style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "1.5rem", fontFamily: "'Lato', 'Inter', sans-serif", cursor: "pointer", boxShadow: `0 8px 24px rgba(0, 0, 0, 0.3)`, transition: "all 0.3s ease" }}>
       <div style={{ fontSize: 11, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>{label}</div>
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        style={{ fontSize: 26, fontWeight: 700, color: color || COLORS.text, marginTop: 4, fontFamily: "'Poppins', sans-serif" }}>{value}</motion.div>
-      {sub && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>{sub}</div>}
+        style={{ fontSize: 32, fontWeight: 700, color: color || COLORS.text, marginTop: 8, fontFamily: "'Playfair Display', 'Poppins', sans-serif" }}>{value}</motion.div>
+      {sub && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 6 }}>{sub}</div>}
     </motion.div>
   );
 }
@@ -607,7 +648,7 @@ function AnalyticsPage({ cycleCount }) {
   // Distribution data
   const stageDistribution = [24, 18, 15, 22];
   const stageLabels = ["Collecting", "Navigating", "Disposing", "Docked"];
-  const stageColors = [COLORS.accent, COLORS.warning, COLORS.danger, COLORS.success];
+  const stageColorsChart = [COLORS.accent, COLORS.warning, COLORS.danger, COLORS.success];
 
   // System performance
   const performanceData = [95, 90, 98, 87, 92];
@@ -619,51 +660,57 @@ function AnalyticsPage({ cycleCount }) {
   const healthColors = [COLORS.success, COLORS.warning, COLORS.accent];
 
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ 
+      padding: "2rem", 
+      fontFamily: "'Lato', 'Inter', sans-serif",
+      background: "linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(147, 51, 234, 0.12) 25%, rgba(126, 34, 206, 0.1) 50%, rgba(168, 85, 247, 0.08) 75%, rgba(139, 92, 246, 0.1) 100%)",
+      minHeight: "100%",
+      backgroundAttachment: "fixed"
+    }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, marginBottom: 4, fontFamily: "'Poppins', sans-serif" }}>Analytics & Reports</div>
-        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 24 }}>System performance & disposal statistics</div>
+        <div style={{ fontSize: 32, fontWeight: 700, color: "#fff", marginBottom: 8, fontFamily: "'Playfair Display', 'Georgia', serif", background: "linear-gradient(135deg, #a855f7 0%, #d946ef 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
+        <div style={{ fontSize: 16, color: COLORS.muted, marginBottom: 32 }}>System performance & disposal statistics</div>
       </motion.div>
 
       {/* KPIs */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
         <StatCard label="Total Cycles" value={cycleCount} sub="Today" color={COLORS.accent} />
         <StatCard label="Avg Level" value="64%" sub="At disposal trigger" color={COLORS.warning} />
         <StatCard label="Uptime" value="99.2%" sub="Last 30 days" color={COLORS.success} />
-        <StatCard label="Sterilizations" value={cycleCount} sub="UV-C cycles complete" color={COLORS.primary} />
+        <StatCard label="Sterilizations" value={cycleCount} sub="UV-C cycles complete" color={COLORS.accent} />
       </div>
 
       {/* Charts Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16, marginBottom: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 20, marginBottom: 32 }}>
         {/* Hourly Bar Chart */}
         <motion.div 
-          whileHover={{ boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem" }}>
+          whileHover={{ boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+          style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", transition: "all 0.3s" }}>
           <BarChart 
             data={hourlyData}
             labels={labels}
             title="Disposal Events — 24H Timeline"
-            height={150}
+            height={200}
             color={COLORS.accent}
           />
         </motion.div>
 
         {/* Stage Distribution Pie */}
         <motion.div 
-          whileHover={{ boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          whileHover={{ boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+          style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transition: "all 0.3s" }}>
           <PieChart 
             data={stageDistribution}
-            colors={stageColors}
+            colors={stageColorsChart}
             title="Operation States"
             size={50}
           />
           <div style={{ marginTop: 16, fontSize: 11, color: COLORS.muted }}>
             {stageLabels.map((label, i) => (
               <div key={i} style={{ marginBottom: 6, display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: stageColors[i] }}></span>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: stageColorsChart[i] }}></span>
                 <span>{label}: {stageDistribution[i]}</span>
               </div>
             ))}
@@ -672,24 +719,24 @@ function AnalyticsPage({ cycleCount }) {
       </div>
 
       {/* Performance & Health Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20, marginBottom: 32 }}>
         {/* System Performance */}
         <motion.div 
-          whileHover={{ y: -5, boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem" }}>
-          <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: 12, fontWeight: 600 }}>System Performance</div>
+          whileHover={{ y: -5, boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+          style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", transition: "all 0.3s" }}>
+          <div style={{ fontSize: 14, color: COLORS.accent, marginBottom: 16, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>System Performance</div>
           {performanceData.map((val, i) => (
-            <div key={i} style={{ marginBottom: 12 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 4 }}>
+            <div key={i} style={{ marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 6 }}>
                 <span style={{ color: COLORS.text, fontWeight: 500 }}>{performanceLabels[i]}</span>
                 <span style={{ color: COLORS.accent, fontWeight: 700 }}>{val}%</span>
               </div>
-              <div style={{ height: 4, background: `${COLORS.muted}15`, borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: 5, background: `rgba(255, 255, 255, 0.05)`, borderRadius: 3, overflow: "hidden" }}>
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: `${val}%` }}
                   transition={{ duration: 1, delay: i * 0.1 }}
-                  style={{ height: "100%", background: val >= 90 ? COLORS.success : COLORS.warning, borderRadius: 2 }}
+                  style={{ height: "100%", background: val >= 90 ? COLORS.success : COLORS.warning, borderRadius: 3 }}
                 />
               </div>
             </div>
@@ -698,18 +745,19 @@ function AnalyticsPage({ cycleCount }) {
 
         {/* Device Health Pie */}
         <motion.div 
-          whileHover={{ y: -5, boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          whileHover={{ y: -5, boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+          style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transition: "all 0.3s" }}>
           <PieChart 
             data={healthMetrics}
             colors={healthColors}
             title="Device Health"
-            size={45}
+            size={50}
           />
-          <div style={{ marginTop: 12, fontSize: 10, color: COLORS.muted, textAlign: "center" }}>
+          <div style={{ marginTop: 16, fontSize: 11, color: COLORS.muted, textAlign: "center" }}>
             {healthLabels.map((label, i) => (
-              <div key={i} style={{ marginBottom: 4 }}>
-                <span style={{ fontWeight: 600 }}>{label}:</span> {healthMetrics[i]}%
+              <div key={i} style={{ marginBottom: 6, display: "flex", alignItems: "center", gap: 8, justifyContent: "center" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: healthColors[i] }}></span>
+                <span><strong>{label}:</strong> {healthMetrics[i]}%</span>
               </div>
             ))}
           </div>
@@ -717,27 +765,27 @@ function AnalyticsPage({ cycleCount }) {
 
         {/* Infection Prevention */}
         <motion.div 
-          whileHover={{ y: -5, boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: 12, fontWeight: 600 }}>Infection Prevention</div>
+          whileHover={{ y: -5, boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+          style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: 14, color: COLORS.accent, marginBottom: 16, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>Infection Prevention</div>
           <motion.div 
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6 }}
-            style={{ fontSize: 48, fontWeight: 800, color: COLORS.success, fontFamily: "'Poppins', sans-serif", marginBottom: 8 }}>0</motion.div>
-          <div style={{ fontSize: 11, color: COLORS.muted, textAlign: "center" }}>
+            style={{ fontSize: 48, fontWeight: 800, color: COLORS.success, fontFamily: "'Playfair Display', 'Poppins', sans-serif", marginBottom: 12 }}>0</motion.div>
+          <div style={{ fontSize: 12, color: COLORS.muted, textAlign: "center" }}>
             <div style={{ marginBottom: 8 }}>UTI incidents</div>
-            <div style={{ fontSize: 10, color: COLORS.success, fontWeight: 600 }}>100% reduction vs baseline</div>
-            <div style={{ marginTop: 8, fontSize: 10 }}>{cycleCount * 12}+ microbes eliminated</div>
+            <div style={{ fontSize: 11, color: COLORS.success, fontWeight: 600 }}>100% reduction vs baseline</div>
+            <div style={{ marginTop: 8, fontSize: 11 }}>{cycleCount * 12}+ microbes eliminated</div>
           </div>
         </motion.div>
       </div>
 
       {/* Detailed Metrics */}
       <motion.div 
-        whileHover={{ boxShadow: `0 8px 24px ${COLORS.accent}15` }}
-        style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem" }}>
-        <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: 16, fontWeight: 600 }}>Detailed Metrics</div>
+        whileHover={{ boxShadow: `0 12px 32px ${COLORS.accent}40` }}
+        style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "2rem", transition: "all 0.3s" }}>
+        <div style={{ fontSize: 14, color: COLORS.accent, marginBottom: 20, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>Detailed Metrics</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Avg Cycle Time", value: "18.5 min", unit: "per unit" },
@@ -745,11 +793,14 @@ function AnalyticsPage({ cycleCount }) {
             { label: "Fluid Capacity", value: "3.0", unit: "Liters" },
             { label: "Maintenance Due", value: "45", unit: "days" },
           ].map((metric, i) => (
-            <div key={i} style={{ background: COLORS.bg, borderRadius: 12, padding: 12 }}>
-              <div style={{ fontSize: 10, color: COLORS.muted, marginBottom: 4, fontWeight: 600, textTransform: "uppercase" }}>{metric.label}</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: COLORS.accent, marginBottom: 2 }}>{metric.value}</div>
-              <div style={{ fontSize: 9, color: COLORS.muted }}>{metric.unit}</div>
-            </div>
+            <motion.div 
+              key={i}
+              whileHover={{ scale: 1.05, y: -2 }}
+              style={{ background: `rgba(0, 0, 0, 0.2)`, borderRadius: 16, padding: "1rem", border: `1px solid rgba(168, 85, 247, 0.15)`, transition: "all 0.3s" }}>
+              <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 6, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>{metric.label}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: COLORS.accent, marginBottom: 4 }}>{metric.value}</div>
+              <div style={{ fontSize: 10, color: COLORS.muted }}>{metric.unit}</div>
+            </motion.div>
           ))}
         </div>
       </motion.div>

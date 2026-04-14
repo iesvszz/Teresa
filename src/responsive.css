@@ -608,12 +608,12 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(107, 63, 93, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 63, 93, 0.5);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 768px) {
@@ -643,7 +643,7 @@ svg {
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   main {
-    background-color: #16171d;
+    background-color: #1a1a1a;
   }
 }
 
