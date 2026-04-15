@@ -173,7 +173,7 @@ function NavBar({ activePage, setPage }) {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   
   return (
-    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.purple}30`, padding: isMobile ? "0 1rem" : "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 60 : 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Lato', 'Inter', 'Poppins', sans-serif", boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)", flexWrap: "wrap" }}>
+    <nav style={{ background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.purple}88)`, borderBottom: `1px solid ${COLORS.border}`, padding: isMobile ? "0 1rem" : "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: isMobile ? 60 : 70, position: "sticky", top: 0, zIndex: 100, fontFamily: "'Inter', sans-serif", boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)", flexWrap: "wrap" }}>
       <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 12 }}>
         <motion.div 
           whileHover={{ scale: 1.1, rotate: 5 }} 
@@ -185,11 +185,11 @@ function NavBar({ activePage, setPage }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              style={{ color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: 1.5, fontFamily: "'Playfair Display', 'Georgia', serif" }}>TERESA <span style={{ color: COLORS.beige, fontWeight: 400, fontSize: 12 }}>Connect</span></motion.span>
+              style={{ color: "#000000", fontWeight: 600, fontSize: 16, letterSpacing: 0.5, fontFamily: "'Inter', sans-serif" }}>TERESA <span style={{ color: "#d4a574", fontWeight: 400, fontSize: 11 }}>Connect</span></motion.span>
             <motion.span 
               animate={{ opacity: [1, 0.7, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              style={{ fontSize: 10, background: `${COLORS.beige}22`, color: COLORS.beige, padding: "2px 8px", borderRadius: 20, marginLeft: 4, fontWeight: 600 }}>● LIVE</motion.span>
+              style={{ fontSize: 10, background: `${COLORS.beige}35`, color: "#000000", padding: "2px 8px", borderRadius: 20, marginLeft: 4, fontWeight: 700 }}>● LIVE</motion.span>
           </>
         )}
       </div>
@@ -209,7 +209,7 @@ function NavBar({ activePage, setPage }) {
             whileHover={!isMobile ? { backgroundColor: `${COLORS.accent}10`, scale: 1.02 } : {}}
             whileTap={{ scale: 0.98 }}
             onClick={() => { setPage(p); setMobileMenuOpen(false); }}
-            style={{ background: activePage === p ? `${COLORS.beige}30` : "transparent", color: activePage === p ? COLORS.beige : "rgba(255,255,255,0.7)", border: activePage === p ? `1px solid ${COLORS.beige}50` : "none", padding: isMobile ? "6px 10px" : "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: isMobile ? 11 : 13, fontWeight: activePage === p ? 600 : 400, fontFamily: "'Lato', 'Inter', sans-serif", transition: "all 0.3s ease", flex: isMobile ? "1 1 45%" : "auto" }}>
+            style={{ background: activePage === p ? `${COLORS.beige}40` : "transparent", color: activePage === p ? "#000000" : "#1a1a1a", border: activePage === p ? `2px solid ${COLORS.beige}` : "none", padding: isMobile ? "6px 10px" : "8px 18px", borderRadius: 8, cursor: "pointer", fontSize: isMobile ? 11 : 13, fontWeight: activePage === p ? 700 : 600, fontFamily: "'Lato', 'Inter', sans-serif", transition: "all 0.3s ease", flex: isMobile ? "1 1 45%" : "auto" }}>
             {isMobile ? p.slice(0, 3).toUpperCase() : p}
           </motion.button>
         ))}
@@ -220,7 +220,7 @@ function NavBar({ activePage, setPage }) {
           <motion.div 
             animate={{ opacity: [1, 0.7, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
-            style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: COLORS.beige, fontFamily: "'Lato', 'Inter', sans-serif" }}>
+            style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#1a1a1a", fontFamily: "'Lato', 'Inter', sans-serif", fontWeight: 600 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: COLORS.success, display: "inline-block", animation: "pulse 2s infinite" }}></span>
             ICAM Hospital
           </motion.div>
@@ -265,7 +265,7 @@ function UrineMeter({ level, stage }) {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}
-            style={{ fontSize: 48, fontWeight: 700, color: getColor(), lineHeight: 1, fontFamily: "'Playfair Display', 'Poppins', sans-serif" }}>{Math.round(level)}<span style={{ fontSize: 18, color: COLORS.muted }}>%</span></motion.div>
+            style={{ fontSize: 42, fontWeight: 700, color: getColor(), lineHeight: 1, fontFamily: "'Inter', sans-serif" }}>{Math.round(level)}<span style={{ fontSize: 18, color: COLORS.muted, fontFamily: "'Inter', sans-serif", fontWeight: 500 }}>%</span></motion.div>
           <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 4 }}>~{Math.round(level * 0.03 * 10) / 10}L collected</div>
           <motion.div 
             animate={{ color: level >= 70 ? COLORS.warning : COLORS.muted }}
@@ -328,7 +328,7 @@ function StageTimeline({ stage }) {
             </motion.div>
             <div style={{ 
               fontSize: 11, 
-              color: i === idx ? "#fff" : i <= idx ? stageColors[s] : COLORS.muted, 
+              color: i === idx ? "#3a3a3a" : i <= idx ? stageColors[s] : COLORS.muted, 
               textAlign: "center", 
               letterSpacing: 0.3, 
               fontWeight: i === idx ? 700 : 500, 
@@ -340,7 +340,8 @@ function StageTimeline({ stage }) {
               whiteSpace: "normal",
               wordBreak: "break-word",
               position: "relative",
-              paddingBottom: i === idx ? 8 : 0
+              paddingBottom: i === idx ? 8 : 0,
+              fontFamily: "'Lato', 'Inter', sans-serif"
             }}>
               {s.replace(/_/g, " ")}
               {i === idx && (
@@ -349,7 +350,7 @@ function StageTimeline({ stage }) {
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.5 }}
-                  style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: "#ffffff", borderRadius: 2, transformOrigin: "center" }}
+                  style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 3, background: "#3a3a3a", borderRadius: 2, transformOrigin: "center" }}
                 />
               )}
             </div>
@@ -371,7 +372,7 @@ function StatCard({ label, value, sub, color }) {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        style={{ fontSize: 32, fontWeight: 700, color: color || COLORS.text, marginTop: 8, fontFamily: "'Playfair Display', 'Poppins', sans-serif" }}>{value}</motion.div>
+        style={{ fontSize: 36, fontWeight: 700, color: color || COLORS.text, marginTop: 8, fontFamily: "'Inter', sans-serif" }}>{value}</motion.div>
       {sub && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 6 }}>{sub}</div>}
     </motion.div>
   );
@@ -522,7 +523,7 @@ function PatientDetail({ p, urineLevel, stage, batteryLevel }) {
           {p.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
         </motion.div>
         <div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: COLORS.text, fontFamily: "'Poppins', sans-serif" }}>{p.name}</div>
+          <div style={{ fontSize: 18, fontWeight: 600, color: COLORS.text, fontFamily: "'Inter', sans-serif" }}>{p.name}</div>
           <div style={{ fontSize: 12, color: COLORS.muted }}>{p.id} · Age {p.age}</div>
         </div>
         <motion.div 
@@ -557,7 +558,7 @@ function PatientDetail({ p, urineLevel, stage, batteryLevel }) {
               <motion.div 
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                style={{ fontSize: 18, fontWeight: 700, color: stat.color, fontFamily: "'Poppins', sans-serif" }}>{stat.value}</motion.div>
+                style={{ fontSize: 20, fontWeight: 700, color: stat.color, fontFamily: "'Inter', sans-serif" }}>{stat.value}</motion.div>
             </motion.div>
           ))}
         </div>
@@ -665,12 +666,16 @@ function AnalyticsPage({ cycleCount }) {
       fontFamily: "'Lato', 'Inter', sans-serif",
       background: "linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(200, 150, 100, 0.06) 25%, rgba(220, 180, 130, 0.07) 50%, rgba(210, 160, 110, 0.06) 75%, rgba(215, 170, 120, 0.07) 100%)",
       minHeight: "100%",
-      backgroundAttachment: "fixed"
+      backgroundAttachment: "fixed",
+      width: "100%",
+      maxWidth: "100%",
+      boxSizing: "border-box",
+      overflow: "visible"
     }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 32, fontWeight: 700, color: "#1a1a1a", marginBottom: 8, fontFamily: "'Playfair Display', 'Georgia', serif", background: "linear-gradient(135deg, #d4a574 0%, #b8885f 50%, #9a7050 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
+        <div style={{ fontSize: 36, fontWeight: 700, color: "#1a1a1a", marginBottom: 8, fontFamily: "'Inter', sans-serif", background: "linear-gradient(135deg, #d4a574 0%, #b8885f 50%, #9a7050 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
         <div style={{ fontSize: 16, color: COLORS.muted, marginBottom: 32 }}>System performance & disposal statistics</div>
       </motion.div>
 
@@ -772,7 +777,7 @@ function AnalyticsPage({ cycleCount }) {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6 }}
-            style={{ fontSize: 48, fontWeight: 800, color: COLORS.success, fontFamily: "'Playfair Display', 'Poppins', sans-serif", marginBottom: 12 }}>0</motion.div>
+            style={{ fontSize: 52, fontWeight: 800, color: COLORS.success, fontFamily: "'Inter', sans-serif", marginBottom: 12 }}>0</motion.div>
           <div style={{ fontSize: 12, color: COLORS.muted, textAlign: "center" }}>
             <div style={{ marginBottom: 8 }}>UTI incidents</div>
             <div style={{ fontSize: 11, color: COLORS.success, fontWeight: 600 }}>100% reduction vs baseline</div>
@@ -813,15 +818,15 @@ function SettingsPage() {
   const [threshold, setThreshold] = useState(80);
   const [uvDuration, setUvDuration] = useState(5);
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ padding: "2rem", fontFamily: "'Inter', sans-serif", width: "100%", maxWidth: "100%", boxSizing: "border-box", overflow: "visible" }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, marginBottom: 4, fontFamily: "'Poppins', sans-serif" }}>Settings</div>
-        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 24 }}>Configure TERESA system parameters</div>
+        <div style={{ fontSize: 26, fontWeight: 600, color: COLORS.text, marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>Settings</div>
+        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 28 }}>Configure TERESA system parameters</div>
       </motion.div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, width: "100%", boxSizing: "border-box" }}>
         <motion.div 
           whileHover={{ y: -5, boxShadow: `0 8px 24px ${COLORS.accent}15` }}
           style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1.5rem" }}>
@@ -1175,12 +1180,12 @@ function MonitorPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount
   };
   
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ padding: "2rem", fontFamily: "'Inter', sans-serif", width: "100%", maxWidth: "100%", boxSizing: "border-box", overflow: "visible" }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, marginBottom: 4, fontFamily: "'Poppins', sans-serif" }}>Real-Time Monitor - Unit Selection</div>
-        <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: 20 }}>Select a TERESA unit to view real-time monitoring and device visualization</div>
+        <div style={{ fontSize: 28, fontWeight: 600, color: COLORS.text, marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>Real-Time Monitor - Unit Selection</div>
+        <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: 24 }}>Select a TERESA unit to view real-time monitoring and device visualization</div>
       </motion.div>
 
       {/* Unit Selector Tabs */}
@@ -1222,7 +1227,7 @@ function MonitorPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}>
-          <div style={{ fontSize: 20, fontWeight: 700, color: COLORS.text, marginBottom: 2, fontFamily: "'Poppins', sans-serif" }}>
+          <div style={{ fontSize: 22, fontWeight: 600, color: COLORS.text, marginBottom: 2, fontFamily: "'Inter', sans-serif" }}>
             {deviceInfo.deviceId} - {currentPatient.name}
           </div>
           <div style={{ fontSize: 13, color: COLORS.muted }}>Patient ID: {currentPatient.id} · Ward: {currentPatient.ward}</div>
@@ -1334,18 +1339,18 @@ function MonitorPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount
 
 function DashboardPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCount, patients, activePatient, setActivePatient, logs, addLog, sosActive, setSosActive, onEmergencyActivated }) {
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+    <div style={{ padding: "2rem", fontFamily: "'Inter', sans-serif", width: "100%", maxWidth: "100%", boxSizing: "border-box", overflow: "visible" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, maxWidth: "100%", width: "100%", boxSizing: "border-box" }}>
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}>
-          <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, fontFamily: "'Poppins', sans-serif" }}>Dashboard</div>
+          <div style={{ fontSize: 36, fontWeight: 600, color: COLORS.text, fontFamily: "'Inter', sans-serif", textAlign: "left", marginBottom: 6 }}>Dashboard</div>
           <div style={{ fontSize: 13, color: COLORS.muted }}>ICAM Hospital · Chennai · {new Date().toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</div>
         </motion.div>
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          style={{ display: "flex", gap: 8 }}>
+          style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
           {["ALL", "ICU", "GERIATRIC", "NEURO"].map(f => (
             <motion.button 
               key={f}
@@ -1355,19 +1360,19 @@ function DashboardPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCou
           ))}
         </motion.div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12, marginBottom: 20, width: "100%", boxSizing: "border-box" }}>
         <StatCard label="Active Patients" value={patients.length} color={COLORS.text} />
         <StatCard label="Online Units" value="5" color={COLORS.success} />
         <StatCard label="Total Cycles" value={cycleCount} color={COLORS.accent} />
         <StatCard label="Alerts Today" value="2" color={COLORS.warning} />
         <StatCard label="UTIs This Month" value="0" color={COLORS.success} />
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "300px 1fr 320px", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "280px 1fr 280px", gap: 16, width: "100%", boxSizing: "border-box" }}>
         {/* Patient list */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1rem", fontFamily: "'Inter', sans-serif" }}>
+          style={{ background: COLORS.surfaceAlt, border: `1px solid ${COLORS.border}`, borderRadius: 16, padding: "1rem", fontFamily: "'Inter', sans-serif", boxSizing: "border-box", overflow: "hidden" }}>
           <div style={{ fontSize: 12, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12, fontWeight: 600 }}>Patients</div>
           {patients.map((p, i) => <PatientRow key={p.id} p={p} active={i === activePatient} onClick={() => setActivePatient(i)} />)}
         </motion.div>
@@ -1376,7 +1381,7 @@ function DashboardPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCou
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          style={{ display: "flex", flexDirection: "column", gap: 14, boxSizing: "border-box" }}>
           <PatientDetail p={patients[activePatient]} urineLevel={urineLevel} stage={stage} batteryLevel={batteryLevel} />
           <StageTimeline stage={stage} />
           <LogPanel logs={logs} />
@@ -1386,7 +1391,7 @@ function DashboardPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCou
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          style={{ display: "flex", flexDirection: "column", gap: 14, boxSizing: "border-box" }}>
           <UrineMeter level={urineLevel} stage={stage} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
             <StatCard label="Battery" value={`${Math.round(batteryLevel)}%`} color={batteryLevel < 30 ? COLORS.danger : COLORS.success} />
@@ -1402,12 +1407,12 @@ function DashboardPage({ urineLevel, stage, batteryLevel, wifiStrength, cycleCou
 
 function PatientsPage({ patients, activePatient, setActivePatient, urineLevel, stage, batteryLevel }) {
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ padding: "2rem", fontFamily: "'Inter', sans-serif", width: "100%", maxWidth: "100%", overflow: "visible" }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, marginBottom: 4, fontFamily: "'Poppins', sans-serif" }}>Patient Registry</div>
-        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 24 }}>All registered patients with TERESA units assigned</div>
+        <div style={{ fontSize: 28, fontWeight: 600, color: COLORS.text, marginBottom: 6, fontFamily: "'Inter', sans-serif" }}>Patient Registry</div>
+        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 28 }}>All registered patients with TERESA units assigned</div>
       </motion.div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }}>
         {patients.map((p, i) => (
@@ -1429,7 +1434,7 @@ function PatientsPage({ patients, activePatient, setActivePatient, urineLevel, s
                 {p.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
               </motion.div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, color: COLORS.text, fontSize: 17, fontFamily: "'Playfair Display', serif", marginBottom: 4 }}>{p.name}</div>
+                <div style={{ fontWeight: 600, color: COLORS.text, fontSize: 17, fontFamily: "'Inter', sans-serif", marginBottom: 4 }}>{p.name}</div>
                 <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 6 }}>{p.id} · <span style={{ fontWeight: 600 }}>Age {p.age}</span></div>
                 <motion.div 
                   animate={{ opacity: [1, 0.6, 1] }}
@@ -1510,12 +1515,12 @@ export default function TeresaConnect() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", background: COLORS.bg, fontFamily: "'Inter', 'Poppins', system-ui, sans-serif", color: COLORS.text, overflow: "hidden", position: "fixed", top: 0, left: 0 }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", background: COLORS.bg, fontFamily: "'Inter', sans-serif", color: COLORS.text, overflow: "hidden", position: "fixed", top: 0, left: 0 }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&family=Georgia:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap');
         
         * { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 600; }
         
         @keyframes pulse {
           0%, 100% { opacity: 1; }
@@ -1592,8 +1597,8 @@ export default function TeresaConnect() {
         }
       `}</style>
       <NavBar activePage={page} setPage={setPage} />
-      <div ref={scrollContainerRef} style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} layout={false}>
+      <div ref={scrollContainerRef} style={{ flex: 1, overflowY: "auto", overflowX: "hidden", width: "100%", boxSizing: "border-box" }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} layout={false} style={{ width: "100%", boxSizing: "border-box" }}>
           {page === "Dashboard" && <DashboardPage {...sim} patients={PATIENTS} onEmergencyActivated={handleEmergencyActivated} />}
           {page === "Monitor" && <MonitorPage {...sim} patients={PATIENTS} onEmergencyActivated={handleEmergencyActivated} />}
           {page === "Patients" && <PatientsPage patients={PATIENTS} activePatient={sim.activePatient} setActivePatient={sim.setActivePatient} urineLevel={sim.urineLevel} stage={sim.stage} batteryLevel={sim.batteryLevel} />}
