@@ -3,21 +3,21 @@ import { motion } from "framer-motion";
 import * as THREE from "three";
 
 const COLORS = {
-  primary: "#0a0a0a",
-  accent: "#a855f7",
+  primary: "#ffffff",
+  accent: "#d4a574",
   success: "#2ecc71",
   warning: "#f39c12",
   danger: "#e74c3c",
-  bg: "#0f0f1e",
-  surface: "#1a1a2e",
-  surfaceAlt: "#16213e",
-  border: "rgba(255, 255, 255, 0.08)",
-  text: "#e0e0e0",
-  muted: "#a0a0a0",
-  beige: "#a855f7",
-  darkBeige: "#9333ea",
-  purple: "#1a1a1a",
-  cream: "#1a1a1a",
+  bg: "#faf8f5",
+  surface: "#ffffff",
+  surfaceAlt: "#f5f2ed",
+  border: "rgba(0, 0, 0, 0.08)",
+  text: "#3a3a3a",
+  muted: "#7a7a7a",
+  beige: "#d4a574",
+  darkBeige: "#b8885f",
+  purple: "#ffffff",
+  cream: "#faf8f5",
 };
 
 // Neumorphic Shadow Styles
@@ -365,7 +365,7 @@ function StatCard({ label, value, sub, color }) {
     <motion.div 
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.98 }}
-      style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(168, 85, 247, 0.2)`, borderRadius: 20, padding: "1.5rem", fontFamily: "'Lato', 'Inter', sans-serif", cursor: "pointer", boxShadow: `0 8px 24px rgba(0, 0, 0, 0.3)`, transition: "all 0.3s ease" }}>
+      style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, backdropFilter: "blur(15px)", WebkitBackdropFilter: "blur(15px)", border: `1.5px solid rgba(212, 165, 116, 0.15)`, borderRadius: 20, padding: "1.5rem", fontFamily: "'Lato', 'Inter', sans-serif", cursor: "pointer", boxShadow: `0 8px 24px rgba(0, 0, 0, 0.1)`, transition: "all 0.3s ease" }}>
       <div style={{ fontSize: 11, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>{label}</div>
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
@@ -461,7 +461,7 @@ function EmergencyNotificationToast({ show, message, timestamp, phone }) {
 
 function LogPanel({ logs }) {
   const endRef = useRef(null);
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [logs]);
+  // Removed auto-scroll to prevent page jumping when logs update
   const typeColor = { info: COLORS.muted, warn: COLORS.warning, success: COLORS.success, error: COLORS.danger };
   return (
     <motion.div 
@@ -663,14 +663,14 @@ function AnalyticsPage({ cycleCount }) {
     <div style={{ 
       padding: "2rem", 
       fontFamily: "'Lato', 'Inter', sans-serif",
-      background: "linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(147, 51, 234, 0.12) 25%, rgba(126, 34, 206, 0.1) 50%, rgba(168, 85, 247, 0.08) 75%, rgba(139, 92, 246, 0.1) 100%)",
+      background: "linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(200, 150, 100, 0.06) 25%, rgba(220, 180, 130, 0.07) 50%, rgba(210, 160, 110, 0.06) 75%, rgba(215, 170, 120, 0.07) 100%)",
       minHeight: "100%",
       backgroundAttachment: "fixed"
     }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 32, fontWeight: 700, color: "#fff", marginBottom: 8, fontFamily: "'Playfair Display', 'Georgia', serif", background: "linear-gradient(135deg, #a855f7 0%, #d946ef 50%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
+        <div style={{ fontSize: 32, fontWeight: 700, color: "#1a1a1a", marginBottom: 8, fontFamily: "'Playfair Display', 'Georgia', serif", background: "linear-gradient(135deg, #d4a574 0%, #b8885f 50%, #9a7050 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
         <div style={{ fontSize: 16, color: COLORS.muted, marginBottom: 32 }}>System performance & disposal statistics</div>
       </motion.div>
 
@@ -796,7 +796,7 @@ function AnalyticsPage({ cycleCount }) {
             <motion.div 
               key={i}
               whileHover={{ scale: 1.05, y: -2 }}
-              style={{ background: `rgba(0, 0, 0, 0.2)`, borderRadius: 16, padding: "1rem", border: `1px solid rgba(168, 85, 247, 0.15)`, transition: "all 0.3s" }}>
+              style={{ background: `rgba(255, 255, 255, 0.5)`, borderRadius: 16, padding: "1rem", border: `1px solid rgba(212, 165, 116, 0.1)`, transition: "all 0.3s" }}>
               <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 6, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>{metric.label}</div>
               <div style={{ fontSize: 18, fontWeight: 700, color: COLORS.accent, marginBottom: 4 }}>{metric.value}</div>
               <div style={{ fontSize: 10, color: COLORS.muted }}>{metric.unit}</div>
@@ -1409,46 +1409,62 @@ function PatientsPage({ patients, activePatient, setActivePatient, urineLevel, s
         <div style={{ fontSize: 22, fontWeight: 700, color: COLORS.text, marginBottom: 4, fontFamily: "'Poppins', sans-serif" }}>Patient Registry</div>
         <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 24 }}>All registered patients with TERESA units assigned</div>
       </motion.div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20 }}>
         {patients.map((p, i) => (
           <motion.div 
             key={p.id}
+            layout={false}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            whileHover={{ y: -8, boxShadow: `0 12px 32px ${COLORS.accent}20` }}
+            whileHover={{ y: -8, boxShadow: `0 16px 40px rgba(0, 0, 0, 0.12)` }}
             onClick={() => setActivePatient(i)} 
-            style={{ background: COLORS.surfaceAlt, border: `2px solid ${i === activePatient ? COLORS.accent : COLORS.border}`, borderRadius: 16, padding: "1.25rem", cursor: "pointer", transition: "all 0.3s" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            style={{ background: `linear-gradient(135deg, ${COLORS.surface}dd 0%, ${COLORS.surfaceAlt}dd 100%)`, border: `2px solid ${i === activePatient ? COLORS.accent : "rgba(212, 165, 116, 0.1)"}`, borderRadius: 18, padding: "1.5rem", cursor: "pointer", transition: "all 0.3s", backdropFilter: "blur(8px)", scrollBehavior: "auto" }}>
+            
+            {/* Header: Avatar, Name, ID, Status */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 14, marginBottom: 20 }}>
               <motion.div 
-                animate={{ scale: i === activePatient ? 1.1 : 1 }}
-                style={{ width: 44, height: 44, borderRadius: "50%", background: `${COLORS.accent}22`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 16, color: COLORS.accent }}>
+                animate={{ scale: i === activePatient ? 1.15 : 1 }}
+                style={{ width: 56, height: 56, borderRadius: 14, background: `linear-gradient(135deg, ${COLORS.accent}30 0%, ${COLORS.accent}15 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 18, color: COLORS.accent, flexShrink: 0 }}>
                 {p.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
               </motion.div>
-              <div>
-                <div style={{ fontWeight: 700, color: COLORS.text, fontSize: 15, fontFamily: "'Poppins', sans-serif" }}>{p.name}</div>
-                <div style={{ fontSize: 12, color: COLORS.muted }}>{p.id} · Age {p.age}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, color: COLORS.text, fontSize: 17, fontFamily: "'Playfair Display', serif", marginBottom: 4 }}>{p.name}</div>
+                <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 6 }}>{p.id} · <span style={{ fontWeight: 600 }}>Age {p.age}</span></div>
+                <motion.div 
+                  animate={{ opacity: [1, 0.6, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, backgroundColor: `${COLORS.success}12`, color: COLORS.success, fontWeight: 700, padding: "4px 10px", borderRadius: 12 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.success }}></span>
+                  Connected
+                </motion.div>
               </div>
-              <motion.div 
-                animate={{ opacity: [1, 0.7, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{ marginLeft: "auto", fontSize: 11, color: COLORS.success, fontWeight: 700 }}>● Active</motion.div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-              {[["Ward", p.ward], ["Bed", p.bed], ["Doctor", p.doctor]].map(([k, v]) => (
-                <div key={k}>
-                  <div style={{ fontSize: 10, color: COLORS.muted, fontWeight: 600, textTransform: "uppercase" }}>{k}</div>
-                  <div style={{ fontSize: 12, color: COLORS.text, fontWeight: 600 }}>{v}</div>
+
+            {/* Details Section - Clean aligned layout */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {[["WARD", p.ward], ["BED", p.bed], ["DOCTOR", p.doctor], ["ADMITTED", p.admitted], ["CONDITION", p.condition]].map(([k, v]) => (
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 11, borderBottom: `1px solid rgba(212, 165, 116, 0.1)` }}>
+                  <div style={{ fontSize: 10, color: COLORS.muted, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.8 }}>{k}</div>
+                  <div style={{ fontSize: 13, color: COLORS.text, fontWeight: 700, textAlign: "right", maxWidth: "55%" }}>{v}</div>
                 </div>
               ))}
             </div>
+
+            {/* Real-time Status */}
             {i === activePatient && (
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${COLORS.border}`, display: "flex", gap: 12 }}>
-                <div style={{ fontSize: 12, color: COLORS.muted }}>Level: <span style={{ color: urineLevel > 70 ? COLORS.warning : COLORS.success, fontWeight: 700 }}>{Math.round(urineLevel)}%</span></div>
-                <div style={{ fontSize: 12, color: COLORS.muted }}>Stage: <span style={{ color: stageColors[stage], fontWeight: 700 }}>{stage}</span></div>
+                style={{ marginTop: 16, paddingTop: 14, borderTop: `2px solid ${COLORS.border}`, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div style={{ background: `${urineLevel > 70 ? COLORS.warning : COLORS.success}12`, borderRadius: 10, padding: "10px 12px", border: `1.5px solid ${urineLevel > 70 ? COLORS.warning : COLORS.success}25`, textAlign: "center" }}>
+                  <div style={{ fontSize: 10, color: COLORS.muted, fontWeight: 700, marginBottom: 6, textTransform: "uppercase" }}>Level</div>
+                  <div style={{ fontSize: 16, color: urineLevel > 70 ? COLORS.warning : COLORS.success, fontWeight: 800 }}>{Math.round(urineLevel)}%</div>
+                </div>
+                <div style={{ background: `#66666612`, borderRadius: 10, padding: "10px 12px", border: `1.5px solid #66666625`, textAlign: "center" }}>
+                  <div style={{ fontSize: 10, color: COLORS.muted, fontWeight: 700, marginBottom: 6, textTransform: "uppercase" }}>Stage</div>
+                  <div style={{ fontSize: 13, color: stageColors[stage], fontWeight: 800 }}>{stage}</div>
+                </div>
               </motion.div>
             )}
           </motion.div>
@@ -1464,6 +1480,7 @@ export default function TeresaConnect() {
   const [showEmergencyNotif, setShowEmergencyNotif] = useState(false);
   const [emergencyTimestamp, setEmergencyTimestamp] = useState("");
   const sim = usePatientSimulations();
+  const scrollContainerRef = useRef(null);
 
   const handleEmergencyActivated = () => {
     const now = new Date().toLocaleTimeString("en-GB");
@@ -1473,8 +1490,27 @@ export default function TeresaConnect() {
     setTimeout(() => setShowEmergencyNotif(false), 5000);
   };
 
+  // Reset scroll to top when page changes or on initial load
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  }, [page]);
+
+  // Ensure scroll to top on mount
+  useEffect(() => {
+    setTimeout(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
+    }, 0);
+  }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", background: COLORS.bg, fontFamily: "'Inter', 'Poppins', system-ui, sans-serif", color: COLORS.text, overflow: "hidden" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", background: COLORS.bg, fontFamily: "'Inter', 'Poppins', system-ui, sans-serif", color: COLORS.text, overflow: "hidden", position: "fixed", top: 0, left: 0 }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&family=Georgia:wght@400;700&display=swap');
         
@@ -1556,8 +1592,8 @@ export default function TeresaConnect() {
         }
       `}</style>
       <NavBar activePage={page} setPage={setPage} />
-      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+      <div ref={scrollContainerRef} style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} layout={false}>
           {page === "Dashboard" && <DashboardPage {...sim} patients={PATIENTS} onEmergencyActivated={handleEmergencyActivated} />}
           {page === "Monitor" && <MonitorPage {...sim} patients={PATIENTS} onEmergencyActivated={handleEmergencyActivated} />}
           {page === "Patients" && <PatientsPage patients={PATIENTS} activePatient={sim.activePatient} setActivePatient={sim.setActivePatient} urineLevel={sim.urineLevel} stage={sim.stage} batteryLevel={sim.batteryLevel} />}

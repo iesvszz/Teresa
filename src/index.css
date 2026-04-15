@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500&display=swap');
 
 :root {
-  --text: #e0e0e0;
-  --text-h: #ffffff;
-  --bg: #0f0f1e;
-  --border: rgba(255, 255, 255, 0.08);
-  --code-bg: #1a1a2e;
-  --accent: #a855f7;
-  --accent-bg: rgba(168, 85, 247, 0.1);
-  --accent-border: rgba(168, 85, 247, 0.3);
-  --social-bg: rgba(26, 26, 46, 0.8);
+  --text: #3a3a3a;
+  --text-h: #1a1a1a;
+  --bg: #faf8f5;
+  --border: rgba(0, 0, 0, 0.08);
+  --code-bg: #f5f2ed;
+  --accent: #d4a574;
+  --accent-bg: rgba(212, 165, 116, 0.08);
+  --accent-border: rgba(212, 165, 116, 0.2);
+  --social-bg: rgba(255, 255, 255, 0.8);
   --shadow:
-    rgba(0, 0, 0, 0.4) 0 8px 12px -2px, rgba(0, 0, 0, 0.2) 0 2px 4px -1px;
+    rgba(0, 0, 0, 0.05) 0 8px 12px -2px, rgba(0, 0, 0, 0.03) 0 2px 4px -1px;
 
   --sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --heading: 'Playfair Display', 'Georgia', serif;
@@ -19,7 +19,7 @@
 
   font: 18px/150% var(--sans);
   letter-spacing: 0.3px;
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -48,21 +48,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #d4d4d4;
-    --text-h: #ffffff;
-    --bg: #121212;
-    --border: #333333;
-    --code-bg: #1f1f1f;
-    --accent: #ffffff;
-    --accent-bg: rgba(255, 255, 255, 0.08);
-    --accent-border: rgba(255, 255, 255, 0.3);
-    --social-bg: rgba(40, 40, 40, 0.8);
+    --text: #3a3a3a;
+    --text-h: #1a1a1a;
+    --bg: #faf8f5;
+    --border: rgba(0, 0, 0, 0.08);
+    --code-bg: #f5f2ed;
+    --accent: #d4a574;
+    --accent-bg: rgba(212, 165, 116, 0.08);
+    --accent-border: rgba(212, 165, 116, 0.2);
+    --social-bg: rgba(255, 255, 255, 0.8);
     --shadow:
-      rgba(0, 0, 0, 0.5) 0 8px 12px -2px, rgba(0, 0, 0, 0.3) 0 2px 4px -1px;
+      rgba(0, 0, 0, 0.05) 0 8px 8px -2px, rgba(0, 0, 0, 0.03) 0 2px 4px -1px;
   }
 
   #social .button-icon {
-    filter: invert(1) brightness(1.8);
+    filter: brightness(0.8);
   }
 }
 
