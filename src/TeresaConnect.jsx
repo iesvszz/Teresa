@@ -643,20 +643,25 @@ function BarChart({ data, labels, title, height = 150, color = COLORS.accent }) 
 }
 
 function AnalyticsPage({ cycleCount }) {
+  const [selectedUnit, setSelectedUnit] = useState(null); // null = all units, 0-4 = specific unit
   const hourlyData = [3, 5, 2, 1, 0, 0, 2, 7, 8, 6, 5, 4, 6, 7, 5, 4, 3, 5, 6, 4, 3, 2, 1, 2];
   const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
 
-  // Distribution data
-  const stageDistribution = [24, 18, 15, 22];
+  // Unit-specific data
+  const unitCycleData = [14, 8, 22, 5, 18];
+  const unitNames = ["TERESA-001", "TERESA-002", "TERESA-003", "TERESA-004", "TERESA-005"];
+
+  // Distribution data - varies by unit
+  const stageDistribution = selectedUnit !== null ? [24 - selectedUnit * 3, 18 - selectedUnit * 2, 15 + selectedUnit, 22 - selectedUnit] : [24, 18, 15, 22];
   const stageLabels = ["Collecting", "Navigating", "Disposing", "Docked"];
   const stageColorsChart = [COLORS.accent, COLORS.warning, COLORS.danger, COLORS.success];
 
   // System performance
-  const performanceData = [95, 90, 98, 87, 92];
+  const performanceData = selectedUnit !== null ? [95 - selectedUnit * 2, 90 - selectedUnit, 98 - selectedUnit * 3, 87 + selectedUnit * 2, 92 - selectedUnit] : [95, 90, 98, 87, 92];
   const performanceLabels = ["Nav Acc", "Sensor", "Steril", "Battery", "Uptime"];
 
   // Device health distribution
-  const healthMetrics = [85, 78, 91];
+  const healthMetrics = selectedUnit !== null ? [85 - selectedUnit * 3, 78 + selectedUnit * 2, 91 - selectedUnit] : [85, 78, 91];
   const healthLabels = ["Mechanical", "Electrical", "Software"];
   const healthColors = [COLORS.success, COLORS.warning, COLORS.accent];
 
@@ -675,16 +680,77 @@ function AnalyticsPage({ cycleCount }) {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}>
-        <div style={{ fontSize: 36, fontWeight: 700, color: "#1a1a1a", marginBottom: 8, fontFamily: "'Inter', sans-serif", background: "linear-gradient(135deg, #d4a574 0%, #b8885f 50%, #9a7050 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Analytics & Reports</div>
-        <div style={{ fontSize: 16, color: COLORS.muted, marginBottom: 32 }}>System performance & disposal statistics</div>
+        <div style={{ fontSize: 36, fontWeight: 600, color: COLORS.text, marginBottom: 6, fontFamily: "'Inter', sans-serif", textAlign: "center" }}>Analytics & Reports</div>
+        <div style={{ fontSize: 14, color: COLORS.muted, marginBottom: 24, textAlign: "center" }}>System performance & disposal statistics {selectedUnit !== null && `- ${unitNames[selectedUnit]}`}</div>
       </motion.div>
+
+      {/* Unit Selection */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
+        <motion.button 
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setSelectedUnit(null)}
+          style={{ fontSize: 12, padding: "8px 16px", borderRadius: 8, border: `2px solid ${selectedUnit === null ? COLORS.accent : COLORS.border}`, background: selectedUnit === null ? `${COLORS.accent}15` : "transparent", color: selectedUnit === null ? COLORS.accent : COLORS.muted, cursor: "pointer", fontWeight: 600, fontFamily: "'Inter', sans-serif", transition: "all 0.3s" }}>
+          📊 All Units
+        </motion.button>
+        {unitNames.map((name, idx) => (
+          <motion.button 
+            key={name}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setSelectedUnit(idx)}
+            style={{ fontSize: 12, padding: "8px 16px", borderRadius: 8, border: `2px solid ${selectedUnit === idx ? COLORS.accent : COLORS.border}`, background: selectedUnit === idx ? `${COLORS.accent}15` : "transparent", color: selectedUnit === idx ? COLORS.accent : COLORS.muted, cursor: "pointer", fontWeight: 600, fontFamily: "'Inter', sans-serif", transition: "all 0.3s" }}>
+            {name}
+          </motion.button>
+        ))}
+      </div>
 
       {/* KPIs */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
-        <StatCard label="Total Cycles" value={cycleCount} sub="Today" color={COLORS.accent} />
-        <StatCard label="Avg Level" value="64%" sub="At disposal trigger" color={COLORS.warning} />
-        <StatCard label="Uptime" value="99.2%" sub="Last 30 days" color={COLORS.success} />
-        <StatCard label="Sterilizations" value={cycleCount} sub="UV-C cycles complete" color={COLORS.accent} />
+        <StatCard 
+          label="Total Cycles" 
+          value={selectedUnit !== null ? unitCycleData[selectedUnit] : cycleCount} 
+          sub={selectedUnit !== null ? unitNames[selectedUnit] : "Today"} 
+          color={COLORS.accent} 
+        />
+        <StatCard 
+          label="Avg Level" 
+          value={selectedUnit !== null ? (64 - selectedUnit * 3) + "%" : "64%"} 
+          sub="At disposal trigger" 
+          color={COLORS.warning} 
+        />
+        <StatCard 
+          label="Uptime" 
+          value={selectedUnit !== null ? (99 - selectedUnit * 0.5) + "%" : "99.2%"} 
+          sub="Last 30 days" 
+          color={COLORS.success} 
+        />
+        <StatCard 
+          label="Sterilizations" 
+          value={selectedUnit !== null ? Math.floor(unitCycleData[selectedUnit] * 1.2) : cycleCount} 
+          sub="UV-C cycles complete" 
+          color={COLORS.accent} 
+       
+          color={COLORS.accent} 
+        />
+        <StatCard 
+          label="Avg Level" 
+          value={selectedUnit !== null ? (64 - selectedUnit * 3) + "%" : "64%"} 
+          sub="At disposal trigger" 
+          color={COLORS.warning} 
+        />
+        <StatCard 
+          label="Uptime" 
+          value={selectedUnit !== null ? (99 - selectedUnit * 0.5) + "%" : "99.2%"} 
+          sub="Last 30 days" 
+          color={COLORS.success} 
+        />
+        <StatCard 
+          label="Sterilizations" 
+          value={selectedUnit !== null ? Math.floor(unitCycleData[selectedUnit] * 1.2) : cycleCount} 
+          sub="UV-C cycles complete" 
+          color={COLORS.accent} 
+        />
       </div>
 
       {/* Charts Grid */}
