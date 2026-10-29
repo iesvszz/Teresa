@@ -17,7 +17,9 @@ function useFullContent(): FullContent | null {
   useEffect(() => {
     if (!__TERESA_FULL__) return;
     let alive = true;
-    import("@private/content").then((m) => alive && setFull(m));
+    import("@private/content").then((m) => {
+      if (alive) setFull(m);
+    });
     return () => {
       alive = false;
     };

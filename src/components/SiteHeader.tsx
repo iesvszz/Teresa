@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { TeresaWordmark } from "./TeresaWordmark";
 
@@ -12,7 +12,7 @@ const LINKS = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  useEffect(() => setOpen(false), [location.pathname, location.hash]);
+  const close = () => setOpen(false);
 
   return (
     <header className="site-header">
@@ -40,13 +40,14 @@ export function SiteHeader() {
                   to={l.to}
                   className={({ isActive }) => (isActive && !l.to.includes("#") && location.hash === "" ? "is-active" : undefined)}
                   end
+                  onClick={close}
                 >
                   {l.label}
                 </NavLink>
               </li>
             ))}
             <li>
-              <Link to="/connect" className="btn btn-outline-accent btn-sm site-nav__connect">
+              <Link to="/connect" className="btn btn-outline-accent btn-sm site-nav__connect" onClick={close}>
                 TERESA Connect
               </Link>
             </li>

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { TeresaWordmark } from "./TeresaWordmark";
 import { Disclaimer } from "./Disclaimer";
 
+const YEAR = new Date().getFullYear();
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -23,7 +25,7 @@ export function SiteFooter() {
           </nav>
         </div>
         <Disclaimer compact />
-        <p className="small muted">© {new Date().getFullYear()} TERESA project. All dashboard data on this site is simulated.</p>
+        <p className="small muted">© {YEAR} TERESA project. All dashboard data on this site is simulated.</p>
       </div>
     </footer>
   );
