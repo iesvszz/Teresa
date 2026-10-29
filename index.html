@@ -4,21 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <meta name="theme-color" content="#371931" />
-    <meta name="description" content="TERESA Connect - Real-time Healthcare Monitoring System" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="TERESA" />
-    <title>TERESA Connect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0F1B2D" />
+    <meta name="description" content="TERESA — an assistive robotics research concept for autonomous urine collection, disposal and post-use treatment. Includes TERESA Connect, a simulated monitoring dashboard." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,400&display=swap" rel="stylesheet" />
+    <title>TERESA — Autonomous Urine Collector</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <!-- PWA Service Worker -->
+    <noscript>TERESA needs JavaScript to run the site and the simulation.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
     <script>
+      // Retire the old TERESA service worker (see public/sw.js).
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          regs.forEach(function (r) { r.update(); });
+        });
       }
     </script>
   </body>

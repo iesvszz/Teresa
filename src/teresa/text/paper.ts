@@ -1,0 +1,81 @@
+import type { TextPack } from "./types";
+import { COMMON_LOG } from "./common";
+
+/**
+ * PUBLIC wording. Describes only what the published paper discloses:
+ * a detachable inner tank that travels to a disposal location, empties,
+ * returns, docks with wireless charging, and runs a UV-C stage after docking.
+ */
+export const PAPER_TEXT: TextPack = {
+  stage: {
+    collecting: "Collecting",
+    transfer: "Transfer to tank",
+    waiting: "Waiting for disposal point",
+    undocking: "Undocking",
+    navigating: "Navigating",
+    positioning: "Positioning",
+    draining: "Emptying",
+    rinsing: "Rinse",
+    returning: "Returning",
+    docking: "Docking",
+    "uv-treatment": "UV-C stage",
+    complete: "Cycle complete",
+  },
+  stageHint: {
+    collecting: "Docked at the bedside. The upper buffer collects from the patient line.",
+    transfer: "Collected urine moves from the buffer into the inner tank.",
+    waiting: "Trip requested. Another unit is at the disposal point.",
+    undocking: "The inner tank unit detaches. The bedside part keeps collecting.",
+    navigating: "Path following to the designated disposal point.",
+    positioning: "Positioning at the disposal point.",
+    draining: "The tank is emptied at the disposal point (simulated).",
+    rinsing: "Optional rinse.",
+    returning: "Returning to the bedside dock.",
+    docking: "Re-docking; wireless charging resumes.",
+    "uv-treatment": "UV-C stage after docking. Duration illustrative; dose not validated.",
+    complete: "Back to collecting.",
+  },
+  fault: {
+    overflow: "Buffer overflow sensor triggered",
+    obstacle: "Obstacle on route",
+    "low-battery": "Battery low",
+    "disposal-check": "Disposal check failed",
+    "failed-return": "Unit did not return",
+    "uv-interlock": "UV-C safety interlock open",
+    estop: "Emergency stop engaged",
+  },
+  log: {
+    ...COMMON_LOG,
+    transferStart: "Transfer from buffer to mobile tank started",
+    approach: "Positioning at the disposal point",
+    disposalOk: "Disposal checks passed — emptying tank",
+    disposalRetry: "Disposal check not passed — retrying",
+    disposalFail: "Disposal check failed — tank not emptied",
+    drained: (ml) => `Tank emptied (simulated): ${Math.round(ml)} mL`,
+  },
+  disposalPointName: "Disposal point",
+  ui: {
+    viewBottom: "Bottom",
+    modeInternal: "Internal",
+    modeDrainage: "Detail",
+    fieldValve: "Disposal valve",
+    fieldPosition: "Position check",
+    fieldCheck: "Disposal checks",
+    positionYes: "In position",
+    positionPending: "Positioning",
+    fieldRinse: "Rinse",
+    safetyDisposalName: "Disposal",
+    safetyDisposalDetail: () => "Only after the disposal checks pass",
+    systemDisposalRule: "Emptying starts only after the disposal checks pass; a failed check raises a fault and the tank is not emptied.",
+    injectCheckLabel: "Disposal check fails",
+    rinseSetting: "Rinse",
+    diagram: {
+      dockTitle: "Bedside part (fixed)",
+      dockSub: "upper buffer · charging",
+      unitSub: "inner tank · sensors",
+      endTitle: "Disposal point",
+      endArrow: "empty",
+      workflowEnd: "disposal point",
+    },
+  },
+};

@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# local test shim
+.shim
+
+# Unpublished design details — never commit to the public repo
+src/private/

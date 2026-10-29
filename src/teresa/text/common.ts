@@ -1,0 +1,32 @@
+import type { TextPack } from "./types";
+
+/** Wording shared by both builds. Only text that is safe to publish belongs here. */
+export const COMMON_LOG: Omit<TextPack["log"], "approach" | "disposalOk" | "disposalRetry" | "disposalFail" | "drained" | "transferStart"> = {
+  transferDone: (ml) => `Transfer complete: ${Math.round(ml)} mL moved to the mobile tank`,
+  tripRequested: (pct) => `Tank at ${Math.round(pct)}% — disposal trip requested`,
+  waiting: (holder) => `Disposal point in use by ${holder} — waiting`,
+  undock: "Undocking — the bedside dock and patient line stay in place",
+  navigate: "Navigating to the disposal point",
+  rinseDone: "Rinse complete",
+  returning: "Returning to the bedside dock",
+  returningNoDisposal: "Returning to the bedside dock without emptying",
+  docked: "Docked — charging enabled",
+  uvStart: "UV-C stage started (illustrative duration; dose not validated)",
+  uvBlocked: "UV-C safety interlock open — UV-C disabled",
+  uvResumed: "UV-C safety interlock closed — UV-C stage resumed",
+  uvDone: "UV-C stage complete",
+  uvSkipped: "UV-C stage disabled in settings — skipped",
+  complete: "Cycle complete — back to collecting",
+  obstacle: "Obstacle detected — unit stopped",
+  obstacleClear: "Path clear — resuming",
+  lowBattery: (pct) => `Battery low (${Math.round(pct)}%) — trip postponed while charging`,
+  batteryOk: "Battery recovered — trips allowed",
+  overflow: "Buffer overflow sensor triggered — caregiver alert",
+  overflowClear: "Buffer overflow condition cleared",
+  failedReturn: "Unit did not complete its return — stopped, caregiver alert",
+  estopOn: "Emergency stop engaged — all motion and valves stopped",
+  estopOff: "Emergency stop released",
+  reset: "Fault reset by operator",
+  forced: "Operator requested a disposal trip",
+  finalTransfer: "Final transfer before departure — emptying the dock buffer",
+};
