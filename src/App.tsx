@@ -3,6 +3,7 @@ import { BrowserRouter, HashRouter, Navigate, Route, Routes } from "react-router
 import { SiteLayout } from "./components/SiteLayout";
 import { ScrollManager } from "./components/ScrollManager";
 import { PageLoading } from "./components/PageLoading";
+import IntroPage from "./pages/IntroPage";
 import LandingPage from "./pages/LandingPage";
 
 const ExplorePage = lazy(() => import("./pages/ExplorePage"));
@@ -26,8 +27,9 @@ export default function App() {
       <ScrollManager />
       <Suspense fallback={<PageLoading />}>
         <Routes>
+          <Route index element={<IntroPage />} />
           <Route element={<SiteLayout />}>
-            <Route index element={<LandingPage />} />
+            <Route path="home" element={<LandingPage />} />
             <Route path="explore" element={<ExplorePage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="*" element={<NotFoundPage />} />

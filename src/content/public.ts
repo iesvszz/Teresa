@@ -80,4 +80,6 @@ export const RELATED_WORK = [
   { who: "Han et al. (AMURS)", what: "An automated guided vehicle carrying urine from the bed to a disposal point in an ICU — the closest related mobile concept; it did not include a treatment stage." },
 ];
 
-export const PAPER_AUTHORS = "Iesvs Immanuel AJ, Tatwin Shelian A, Pauline Samyuktha R, Karthickeyan SP (supervisor: Dr. Shobana G)";
+export const PAPER_TITLE = "TERESA: Smart Self-Disposing and Sterilizing";
+
+export const PAPER_AUTHORS ="Iesvs Immanuel AJ, Tatwin Shelian A, Pauline Samyuktha R, Karthickeyan SP (supervisor: Dr. Shobana G)";

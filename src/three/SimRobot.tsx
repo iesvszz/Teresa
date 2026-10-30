@@ -1,6 +1,5 @@
 import { Suspense, lazy, useMemo, useRef } from "react";
 import { type ThreeEvent, useFrame } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
 import { Color, type Group, type Mesh, type MeshStandardMaterial, type Object3D } from "three";
 import { ROBOT, WHEEL_POSITIONS } from "../teresa/model-config";
 import { normalizeAngle } from "../teresa/motion";
@@ -8,14 +7,15 @@ import { simStore } from "../teresa/store";
 import type { TeresaUnitId } from "../teresa/types";
 import { RobotBody } from "./RobotModel";
 import type { ModelMode } from "./types";
+import { SceneLabel } from "./SceneLabel";
 
 /** Full-disclosure internals. Removed from the public bundle at build time. */
 const RobotFullDetail = __TERESA_FULL__ ? lazy(() => import("@private/RobotFullDetail")) : null;
 
-const C_ACTIVE = new Color("#2f6fd0");
-const C_DOCKED = new Color("#2e9d62");
-const C_WARN = new Color("#e09a10");
-const C_FAULT = new Color("#d12d20");
+const C_ACTIVE = new Color("#0a84ff");
+const C_DOCKED = new Color("#22c55e");
+const C_WARN = new Color("#f59e0b");
+const C_FAULT = new Color("#ef4444");
 
 interface Props {
   unitId: TeresaUnitId;
@@ -101,18 +101,16 @@ export function SimRobot({ unitId, label, selected, modelMode, segments, showLab
       {selected && (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.004, 0]}>
           <ringGeometry args={[0.36, 0.385, 48]} />
-          <meshBasicMaterial color="#1f4e8c" transparent opacity={0.85} />
+          <meshBasicMaterial color="#0a84ff" transparent opacity={0.9} />
         </mesh>
       )}
       {/* obstacle marker ahead of the unit (demo fault) */}
       <mesh ref={obstacle} position={[0, 0.12, 0.62]} visible={false} castShadow>
         <coneGeometry args={[0.09, 0.24, 16]} />
-        <meshStandardMaterial color="#e09a10" roughness={0.6} />
+        <meshStandardMaterial color="#f59e0b" roughness={0.6} />
       </mesh>
       {showLabel && (
-        <Html position={[0, 0.48, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: "none" }}>
-          <div className={`scene-label${selected ? " is-selected" : ""}`}>{label}</div>
-        </Html>
+        <SceneLabel position={[0, 0.48, 0]} className={`scene-label${selected ? " is-selected" : ""}`} text={label} zIndex={selected ? 30 : 20} />
       )}
     </group>
   );

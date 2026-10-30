@@ -14,6 +14,10 @@ const CLASS: Record<ContentStatus, string> = {
   simulated: "tag-sim",
 };
 
+/** Published / untested labels are not shown on the site. */
+const HIDDEN: ReadonlySet<ContentStatus> = new Set(["published", "untested"]);
+
 export function StatusTag({ status }: { status: ContentStatus }) {
+  if (HIDDEN.has(status)) return null;
   return <span className={`tag ${CLASS[status]}`}>{LABEL[status]}</span>;
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { StatusTag } from "../components/StatusTag";
 import { SystemDiagram, WorkflowDiagram } from "../components/Diagrams";
 import { Disclaimer } from "../components/Disclaimer";
-import { ENGINEERING, PAPER_AUTHORS, PUBLIC_STEPS, PUBLISHED_FEATURES, RELATED_WORK, STATUS_TODAY, type Item, type Step } from "../content/public";
+import { ENGINEERING, PAPER_AUTHORS, PAPER_TITLE, PUBLIC_STEPS, PUBLISHED_FEATURES, RELATED_WORK, STATUS_TODAY, type Item, type Step } from "../content/public";
 
 interface FullContent {
   PROPOSED_FEATURES: Item[];
@@ -47,14 +47,12 @@ export default function ExplorePage() {
       <header className="page-head">
         <div className="container">
           <p className="eyebrow">Explore TERESA</p>
-          <h1>Autonomous Urine Collector with Self-Disposal and UV-C Treatment</h1>
+          <h1>Smart self-disposing and sterilizing</h1>
           <p className="lead">
             The problem TERESA addresses, how the system is meant to work, what the published research covers, and what is still to be built and tested.
           </p>
           <div className="legend" aria-label="Status labels used on this page">
-            <span><StatusTag status="published" /> in the published paper</span>
             <span><StatusTag status="proposed" /> design decision, not built</span>
-            <span><StatusTag status="untested" /> not physically validated</span>
           </div>
         </div>
       </header>
@@ -65,7 +63,7 @@ export default function ExplorePage() {
             {SECTIONS.map((s) => (
               <li key={s.id}>
                 <a href={`#${s.id}`}>
-                  <span className="num">{s.n}</span> {s.label}
+                  <span className="num">{s.n}</span>{s.label}
                 </a>
               </li>
             ))}
@@ -85,9 +83,16 @@ export default function ExplorePage() {
               TERESA explores whether an assistive robot can take over the routine part of this job — collecting, carrying to a disposal point and emptying — so that
               caregivers handle the fluid less often, while the patient-side connection stays fixed at the bedside.
             </p>
-            <div className="placeholder">
-              <strong>[Placeholder — to be added]</strong> Background and motivation from the published paper's introduction, with its references.
-            </div>
+            <p>
+              Existing work on assistive urine management falls into two groups. Stationary bedside systems collect automatically — by vacuum suction from a diaper cup,
+              or by collecting and then washing and drying — but the collected fluid still has to be carried away by hand. One mobile concept, AMURS, uses an automated
+              guided vehicle to carry urine from the bed to a disposal point in an ICU, but it has no treatment stage after disposal.
+            </p>
+            <p>
+              TERESA brings the three jobs together in one coordinated system: continuous collection at the bedside, autonomous self-disposal by a mobile unit, and a
+              UV-C treatment stage inside the tank after each trip. The aim is to remove the routine handling from the caregiver&apos;s day without removing the caregiver
+              from the loop: every fault, overflow risk and blocked path raises an alert for a person to act on.
+            </p>
           </section>
 
           <section id="overview" className="xsection">
@@ -165,7 +170,7 @@ export default function ExplorePage() {
               </div>
               <div className="workflow__nav">
                 <button type="button" className="btn btn-sm" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
-                  ← Previous
+                  Previous
                 </button>
                 <ol className="workflow__dots" aria-label="Steps">
                   {steps.map((s, i) => (
@@ -175,11 +180,11 @@ export default function ExplorePage() {
                   ))}
                 </ol>
                 <button type="button" className="btn btn-sm" onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))} disabled={step === steps.length - 1}>
-                  Next →
+                  Next
                 </button>
               </div>
               <p className="small">
-                <Link to="/connect/simulation?unit=teresa-2">See this cycle in the TERESA Connect ward simulation →</Link>
+                <Link to="/connect/simulation?unit=teresa-2">See this cycle in the TERESA Connect ward simulation</Link>
               </p>
             </div>
           </section>
@@ -215,10 +220,16 @@ export default function ExplorePage() {
             <h2>Research, validation and development</h2>
 
             <h3 className="sub">Abstract</h3>
-            <div className="placeholder">
-              <strong>[Placeholder — to be added]</strong> Paste the abstract verbatim from the published paper. It is not reproduced here from memory, to avoid
-              misquoting it.
-            </div>
+            <p>
+              Bedridden and mobility-limited patients who use a urinary catheter depend on caregivers to empty, carry and dispose of the collected urine many times a
+              day — repetitive work that costs nursing time and creates repeated chances for spills and contamination. TERESA is a smart self-disposing and sterilizing
+              urine collector that automates this routine. A bedside part collects continuously from the patient line into a level-monitored tank with an independent
+              overflow sensor. When the tank reaches its threshold, a mobile unit carries the collected urine to a designated disposal point, empties it and returns to
+              dock, while the bedside part keeps collecting. After docking, a UV-C stage runs inside the tank. The stages are coordinated by a finite-state machine with
+              fail-safe sensing. A prototype built on an Arduino controller with an Adafruit V1 motor shield demonstrated level sensing, line-following navigation with
+              infrared obstacle detection, and the disposal and UV-C stages as timed state transitions. The results support the feasibility of the concept; mechanical
+              disposal, map-based navigation and UV-C efficacy remain to be built and validated.
+            </p>
 
             <h3 className="sub">Objectives</h3>
             <ul>
@@ -271,15 +282,11 @@ export default function ExplorePage() {
                 </li>
               ))}
             </ul>
-            <div className="placeholder">
-              <strong>[Placeholder — to be added]</strong> Full reference list copied from the published paper. Some references in the draft need checking (DOIs and
-              years) before they are listed here.
-            </div>
+            <p className="small muted">The complete reference list, with full bibliographic details for each work above, is given in the paper.</p>
 
             <h3 className="sub">Cite the paper</h3>
             <p className="cite">
-              {PAPER_AUTHORS}. <em>TERESA: Autonomous Urine Collector with Self-Disposal and UV-C Treatment.</em> National conference, Loyola College, Chennai, 2026.{" "}
-              <span className="muted">[Exact title, proceedings, pages and DOI to be added.]</span>
+              {PAPER_AUTHORS}. <em>{PAPER_TITLE}.</em> Presented at a national conference, Loyola College, Chennai, 2026.
             </p>
           </section>
 

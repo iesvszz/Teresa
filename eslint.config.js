@@ -29,6 +29,8 @@ export default defineConfig([
   {
     files: ['**/*.{js,jsx}'],
     extends: [js.configs.recommended],
-    languageOptions: { ecmaVersion: 2022, globals: { ...globals.browser, ...globals.serviceworker } },
+    languageOptions: { ecmaVersion: 2022, parserOptions: { ecmaFeatures: { jsx: true } }, globals: { ...globals.browser, ...globals.serviceworker } },
+    // Plain eslint can't see JSX usage; capitalised names are components.
+    rules: { 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }] },
   },
 ])

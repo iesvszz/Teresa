@@ -14,14 +14,14 @@ export function SceneFallback({ selected, reason }: { selected?: TeresaUnitId; r
   return (
     <div className="scene-fallback" role="img" aria-label="Plan view of the simulated ward: five beds along the back wall, a dock beside each bed, and a fixed disposal point in the back-right corner.">
       <svg viewBox={vb} preserveAspectRatio="xMidYMid meet">
-        <rect x={WARD.minX} y={WARD.minZ} width={WARD.maxX - WARD.minX} height={WARD.maxZ - WARD.minZ} fill="#f2f0eb" stroke="#b8bec8" strokeWidth={0.04} />
-        <rect x={WARD.minX} y={WARD.laneZ - 0.55} width={WARD.maxX - WARD.minX} height={1.1} fill="#e6e3dd" />
+        <rect x={WARD.minX} y={WARD.minZ} width={WARD.maxX - WARD.minX} height={WARD.maxZ - WARD.minZ} fill="#f3f5f8" stroke="#b8bec8" strokeWidth={0.04} />
+        <rect x={WARD.minX} y={WARD.laneZ - 0.55} width={WARD.maxX - WARD.minX} height={1.1} fill="#e4e7ec" />
         {BED.xs.map((bx, i) => {
           const lay = unitLayout(i);
           return (
             <g key={bx}>
               <rect x={bx - BED.width / 2} y={BED.centerZ - BED.length / 2} width={BED.width} height={BED.length} rx={0.06} fill="#fff" stroke="#c4cad3" strokeWidth={0.03} />
-              <rect x={lay.dockX - DOCK.width / 2} y={DOCK.centerZ - DOCK.depth / 2} width={DOCK.width} height={DOCK.depth} fill={i === sel ? "#1f4e8c" : "#d6c9b5"} />
+              <rect x={lay.dockX - DOCK.width / 2} y={DOCK.centerZ - DOCK.depth / 2} width={DOCK.width} height={DOCK.depth} fill={i === sel ? "#1f4e8c" : "#c9d0da"} />
               <text x={bx} y={BED.centerZ + 0.2} fontSize={0.32} textAnchor="middle" fill="#5b6577">
                 {i + 1}
               </text>

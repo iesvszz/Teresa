@@ -1,5 +1,6 @@
 import { Suspense, lazy, useMemo } from "react";
-import { Html, Line } from "@react-three/drei";
+import { Line } from "@react-three/drei";
+import { SceneLabel } from "./SceneLabel";
 import { CatmullRomCurve3, Vector3 } from "three";
 import { BED, DOCK, DRAIN, WARD, routePolyline, unitLayout } from "../teresa/model-config";
 import { T } from "../teresa/text";
@@ -9,9 +10,9 @@ import { PatientBed } from "./PatientBed";
 
 const DrainDetail = __TERESA_FULL__ ? lazy(() => import("@private/DrainDetail")) : null;
 
-const FLOOR = "#e6e3dd";
-const WALL = "#f2f0eb";
-const SKIRT = "#b8bec8";
+const FLOOR = "#cfdcee";
+const WALL = "#f7faff";
+const SKIRT = "#1e3a8a";
 
 function PatientLine({ index }: { index: number }) {
   const lay = unitLayout(index);
@@ -57,12 +58,12 @@ export function Ward({
       {/* aisle band */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.001, WARD.laneZ]} receiveShadow>
         <planeGeometry args={[w, 1.1]} />
-        <meshStandardMaterial color="#e1ded7" roughness={0.9} />
+        <meshStandardMaterial color="#a9c3e8" roughness={0.85} />
       </mesh>
       {/* disposal corner patch */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[DRAIN.x, 0.0015, DRAIN.z]} receiveShadow>
         <planeGeometry args={[1.3, 1.3]} />
-        <meshStandardMaterial color="#d8dbe0" roughness={0.85} />
+        <meshStandardMaterial color="#7fb0f0" roughness={0.7} />
       </mesh>
 
       {/* walls: back, left, right. The front is open for viewing. */}
@@ -74,6 +75,17 @@ export function Ward({
         <mesh key={x} position={[x, WARD.wallHeight / 2, 0]} receiveShadow>
           <boxGeometry args={[t, WARD.wallHeight, d]} />
           <meshStandardMaterial color={WALL} roughness={0.95} />
+        </mesh>
+      ))}
+      {/* wainscot: a blue band along the lower walls */}
+      <mesh position={[0, 0.5, WARD.minZ + 0.004]}>
+        <boxGeometry args={[w, 0.8, 0.006]} />
+        <meshStandardMaterial color="#e3eefc" roughness={0.9} />
+      </mesh>
+      {[WARD.minX + 0.004, WARD.maxX - 0.004].map((x) => (
+        <mesh key={`w${x}`} position={[x, 0.5, 0]}>
+          <boxGeometry args={[0.006, 0.8, d]} />
+          <meshStandardMaterial color="#e3eefc" roughness={0.9} />
         </mesh>
       ))}
       {/* skirting */}
@@ -91,12 +103,12 @@ export function Ward({
       {[-2.2, 1.6].map((z) => (
         <mesh key={z} position={[WARD.minX + 0.004, 1.6, z]} rotation={[0, Math.PI / 2, 0]}>
           <planeGeometry args={[1.7, 1.15]} />
-          <meshStandardMaterial color="#dfe9f4" emissive="#eaf2fb" emissiveIntensity={0.55} roughness={0.2} />
+          <meshStandardMaterial color="#bfe0ff" emissive="#d6ebff" emissiveIntensity={0.7} roughness={0.2} />
         </mesh>
       ))}
       <mesh position={[WARD.maxX - 0.004, 1.05, 2.6]} rotation={[0, -Math.PI / 2, 0]}>
         <planeGeometry args={[1.0, 2.1]} />
-        <meshStandardMaterial color="#d7d1c6" roughness={0.7} />
+        <meshStandardMaterial color="#2f5fa8" roughness={0.6} />
       </mesh>
 
       {/* beds, headwall panels, docks and patient lines */}
@@ -104,7 +116,7 @@ export function Ward({
         <group key={bx}>
           <mesh position={[bx, 1.32, WARD.minZ + 0.03]}>
             <boxGeometry args={[1.0, 0.22, 0.05]} />
-            <meshStandardMaterial color="#e3e7ed" roughness={0.6} />
+            <meshStandardMaterial color="#dbe8fb" roughness={0.6} />
           </mesh>
           <mesh position={[bx, 1.36, WARD.minZ + 0.058]}>
             <planeGeometry args={[0.8, 0.03]} />
@@ -114,9 +126,7 @@ export function Ward({
           <BedsideDock unitId={UNIT_IDS[i]} x={unitLayout(i).dockX} />
           <PatientLine index={i} />
           {showLabels && (
-            <Html position={[bx, 1.62, WARD.minZ + 0.08]} center zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
-              <div className={`scene-label scene-label--muted${i === selIndex ? " is-selected" : ""}`}>Bed {i + 1}</div>
-            </Html>
+            <SceneLabel position={[bx, 1.62, WARD.minZ + 0.08]} className={`scene-label scene-label--muted${i === selIndex ? " is-selected" : ""}`} text={`Bed ${i + 1}`} />
           )}
         </group>
       ))}
@@ -129,17 +139,15 @@ export function Ward({
       ) : (
         <mesh position={[DRAIN.x, 0.003, DRAIN.z]} receiveShadow>
           <boxGeometry args={[DRAIN.plateSize, 0.006, DRAIN.plateSize]} />
-          <meshStandardMaterial color="#c3c9d0" metalness={0.6} roughness={0.35} />
+          <meshStandardMaterial color="#0a84ff" metalness={0.4} roughness={0.35} />
         </mesh>
       )}
       {showLabels && (
-        <Html position={[DRAIN.x, 0.05, DRAIN.z + 0.55]} center zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
-          <div className="scene-label scene-label--accent">{T.disposalPointName} (fixed)</div>
-        </Html>
+        <SceneLabel position={[DRAIN.x, 0.05, DRAIN.z + 0.55]} className="scene-label scene-label--accent" text={`${T.disposalPointName} (fixed)`} />
       )}
 
       {/* route of the selected unit */}
-      <Line points={route} color="#1f4e8c" lineWidth={1.6} dashed dashSize={0.18} gapSize={0.12} transparent opacity={0.75} />
+      <Line points={route} color="#0a84ff" lineWidth={1.6} dashed dashSize={0.18} gapSize={0.12} transparent opacity={0.75} />
     </group>
   );
 }

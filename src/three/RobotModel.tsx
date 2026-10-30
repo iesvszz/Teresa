@@ -54,19 +54,19 @@ export function RobotBody({ highlighted = false, xray = false, segments = 24 }: 
           opacity={xray ? 0.16 : 1}
           depthWrite={!xray}
         />
-        {highlighted && <Outlines thickness={0.006} color="#1f4e8c" />}
+        {highlighted && <Outlines thickness={0.006} color="#0a84ff" />}
       </RoundedBox>
 
       {/* lower trim / bumper band */}
       <mesh position={[0, ROBOT.groundClearance + 0.018, ROBOT.bodyLength / 2 - 0.012]} castShadow>
         <boxGeometry args={[ROBOT.bodyWidth - 0.06, 0.03, 0.03]} />
-        <meshStandardMaterial color="#3a4250" roughness={0.6} transparent={xray} opacity={xray ? 0.3 : 1} />
+        <meshStandardMaterial color="#1e3a8a" roughness={0.55} transparent={xray} opacity={xray ? 0.3 : 1} />
       </mesh>
 
       {/* status light strip (front top edge) */}
       <mesh name="status-light" position={[0, ROBOT.topY - 0.004, ROBOT.bodyLength / 2 - 0.07]}>
         <boxGeometry args={[0.16, 0.008, 0.016]} />
-        <meshStandardMaterial color="#cfd8e6" emissive="#1f4e8c" emissiveIntensity={0.8} toneMapped={false} />
+        <meshStandardMaterial color="#7cc0ff" emissive="#0a84ff" emissiveIntensity={1.2} toneMapped={false} />
       </mesh>
 
       {/* top transfer port (meets the dock coupling when docked) */}

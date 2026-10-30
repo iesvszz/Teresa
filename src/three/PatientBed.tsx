@@ -4,9 +4,9 @@ import { RoundedBox } from "@react-three/drei";
 import type { Group } from "three";
 import { BED } from "../teresa/model-config";
 
-const FRAME = "#c4cad3";
+const FRAME = "#8aa4c8";
 const LINEN = "#f7f7f4";
-const BLANKET = "#c9d4e4";
+const BLANKET = "#3b82f6";
 
 /**
  * Hospital bed with a patient for spatial context only.
@@ -45,7 +45,7 @@ export function PatientBed({ x, breathe = true, phase = 0 }: { x: number; breath
           </mesh>
           <mesh position={[0, 0.035, 0]}>
             <sphereGeometry args={[0.035, 10, 8]} />
-            <meshStandardMaterial color="#3a3f48" roughness={0.7} />
+            <meshStandardMaterial color="#1e293b" roughness={0.7} />
           </mesh>
         </group>
       ))}
@@ -75,7 +75,7 @@ export function PatientBed({ x, breathe = true, phase = 0 }: { x: number; breath
       </RoundedBox>
       <mesh position={[0, 0.75, -L / 2 + 0.34]} castShadow>
         <sphereGeometry args={[0.095, 20, 16]} />
-        <meshStandardMaterial color="#cfae95" roughness={0.8} />
+        <meshStandardMaterial color="#e3b994" roughness={0.75} />
       </mesh>
       {/* blanket: lower layer and a soft torso contour */}
       <RoundedBox args={[W - 0.1, 0.12, 1.45]} radius={0.05} smoothness={3} position={[0, 0.64, 0.18]} castShadow receiveShadow>

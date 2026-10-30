@@ -1,35 +1,35 @@
 /* TERESA design tokens — one place for colour, type and spacing. */
 :root {
-  --bg: #fafaf8;
-  --bg-alt: #f3f2ee;
+  --bg: #ffffff;
+  --bg-alt: #f6f8fb;
   --surface: #ffffff;
-  --border: rgba(16, 24, 40, 0.08);
-  --border-strong: rgba(16, 24, 40, 0.16);
+  --border: rgba(10, 15, 26, 0.08);
+  --border-strong: rgba(10, 15, 26, 0.16);
 
-  --text: #0f1b2d;
-  --muted: #5b6577;
+  --text: #0a0f1a;
+  --muted: #566070;
   --subtle: #8a93a3;
 
-  --accent: #1f4e8c;
-  --accent-ink: #163a69;
-  --accent-soft: #e8eef7;
+  --accent: #0a84ff;
+  --accent-ink: #0066d6;
+  --accent-soft: #e8f3ff;
 
-  --fluid: #d98e04;
-  --fluid-soft: #fbf1dc;
-  --warning: #b86e00;
-  --warning-soft: #fdf3e1;
-  --fault: #b42318;
-  --fault-soft: #fdecea;
-  --ok: #2e7d4f;
-  --ok-soft: #e8f4ec;
-  --uv: #6b4fbb;
+  --fluid: #3d78c9;
+  --fluid-soft: #e9f0fa;
+  --warning: #2f6fd0;
+  --warning-soft: #e8f0fc;
+  --fault: #0b0f17;
+  --fault-soft: #e6e8ec;
+  --ok: #2f6fd0;
+  --ok-soft: #e8f0fc;
+  --uv: #3d6fb0;
 
   --font: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   --radius-s: 6px;
   --radius: 10px;
-  --radius-l: 14px;
+  --radius-l: 16px;
 
   --shadow-s: 0 1px 2px rgba(16, 24, 40, 0.05);
   --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 6px 18px rgba(16, 24, 40, 0.06);
@@ -44,5 +44,5 @@
   --space-8: 72px;
 
   --content: 1160px;
-  --header-h: 64px;
+  --header-h: 0px;
 }

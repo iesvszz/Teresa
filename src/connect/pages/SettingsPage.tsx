@@ -62,7 +62,7 @@ export default function SettingsPage() {
           <p className="small muted">Settings apply to all five simulated units. They are not device settings.</p>
         </section>
         <section className="card panel" aria-labelledby="set-alerts">
-          <div className="panel__head"><h2 id="set-alerts">Caregiver alerts</h2><span className="tag tag-neutral">Placeholder</span></div>
+          <div className="panel__head"><h2 id="set-alerts">Caregiver alerts</h2><span className="tag tag-neutral">Not connected</span></div>
           <label className="setting setting--stack">
             <span className="setting__label">Caregiver contact (stored only in this browser)</span>
             <input className="input" type="text" value={contact} placeholder="e.g. ward nurse station" onChange={(e) => { setContact(e.target.value); setSaved(false); }} />

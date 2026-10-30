@@ -6,7 +6,7 @@ export default function NotFoundPage() {
       <div className="container narrow">
         <h1>Page not found</h1>
         <p className="lead">That page does not exist.</p>
-        <Link to="/" className="btn btn-primary">Back to TERESA</Link>
+        <Link to="/home" className="btn btn-primary">Back to TERESA</Link>
       </div>
     </section>
   );

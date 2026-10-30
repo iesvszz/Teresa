@@ -3,7 +3,7 @@ import { T } from "../teresa/text";
 
 const NAVY = "#0f1b2d";
 const ACCENT = "#1f4e8c";
-const FLUID = "#d98e04";
+const FLUID = "#3d78c9";
 const MUTED = "#5b6577";
 const LINE = "#c4cad3";
 
@@ -71,7 +71,7 @@ export function SystemDiagram() {
         <text x={330} y={44} textAnchor="middle" fontSize={11.5} fill={MUTED}>never moves</text>
         <text x={595} y={44} textAnchor="middle" fontSize={11.5} fill={MUTED}>the only part that travels</text>
       </svg>
-      <figcaption className="small muted">Conceptual block diagram. Fluid paths in amber.</figcaption>
+      <figcaption className="small muted">Conceptual block diagram. Fluid paths in blue.</figcaption>
     </figure>
   );
 }
@@ -85,13 +85,13 @@ export function WorkflowDiagram({ pos, step }: { pos: number; step: number }) {
   return (
     <svg className="workflow-svg" viewBox="0 0 900 230" role="img" aria-label={`Workflow step ${step + 1} plan view`}>
       <Defs />
-      <rect x={20} y={20} width={860} height={190} rx={12} fill="#f3f2ee" />
+      <rect x={20} y={20} width={860} height={190} rx={12} fill="#f4f6f9" />
       {/* bed */}
       <rect x={40} y={40} width={80} height={140} rx={10} fill="#fff" stroke={LINE} strokeWidth={1.5} />
       <rect x={52} y={48} width={56} height={26} rx={8} fill="#eef0f3" />
       <rect x={48} y={84} width={64} height={88} rx={8} fill="#c9d4e4" />
       {/* dock */}
-      <rect x={128} y={40} width={50} height={50} rx={4} fill="#d6c9b5" stroke="#b5a68f" />
+      <rect x={128} y={40} width={50} height={50} rx={4} fill="#c9d0da" stroke="#a9b2bf" />
       <text x={153} y={108} textAnchor="middle" fontSize={11} fill={MUTED}>dock</text>
       <path d="M 112 70 C 120 64, 124 62, 130 62" stroke="#9fb3c5" strokeWidth={2} fill="none" />
       {/* route */}

@@ -1,92 +1,102 @@
 import { Link } from "react-router-dom";
 import { useSim } from "../../teresa/hooks";
+import { activeAlertCount, bufferPct, fmtM, fmtMl, fmtPct, navigationState, statusLabel, tankPct } from "../../teresa/selectors";
 import { UNIT_IDS } from "../../teresa/types";
-import { bufferPct, fmtM, fmtMl, fmtPct, navigationState, statusLabel, tankPct } from "../../teresa/selectors";
 import { T } from "../../teresa/text";
+import { simStore } from "../../teresa/store";
 import { useConnect } from "../context";
-import { ScenePanel } from "../components/ScenePanel";
 import { ActivityTimeline } from "../components/ActivityTimeline";
 import { AlertsList } from "../components/AlertsList";
 import { LevelBar } from "../components/LevelBar";
-import { simStore } from "../../teresa/store";
+
+/** "3 collecting, 1 undocking and 1 in UV-C stage" */
+function wardSummary(labels: string[]): string {
+  const counts = new Map<string, number>();
+  for (const l of labels) counts.set(l, (counts.get(l) ?? 0) + 1);
+  const parts = [...counts].map(([l, n]) => `${n} ${l.replace(/^[A-Z][a-z]/, (m) => m.toLowerCase())}`);
+  return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}` : parts[0];
+}
 
 export default function OverviewPage() {
-  const { unitId, select, search } = useConnect();
+  const { unitId, search } = useConnect();
   const { ward } = useSim();
   const u = ward.units[unitId];
   const unitLog = ward.log.filter((l) => l.unitId === unitId).slice(0, 6);
   const activeAlerts = ward.alerts.filter((a) => !a.cleared || !a.acknowledged).slice(0, 4);
+  const alertCount = activeAlertCount(ward);
+  const canTrip = u.docked && (u.stage === "collecting" || u.stage === "transfer") && u.tankMl > 0;
 
   return (
-    <div className="page">
-      <div className="grid grid--scene">
-        <ScenePanel ward={ward} unitId={unitId} onSelect={select} height={460} showModelModes={false} />
-        <section className="card panel" aria-labelledby="sel-title">
-          <div className="panel__head">
-            <h2 id="sel-title">{u.label}</h2>
-            <span className={`tag ${u.condition === "fault" ? "tag-fault" : u.condition === "warning" ? "tag-warning" : "tag-neutral"}`}>{statusLabel(u)}</span>
+    <div className="ov">
+      <p className="ov-summary">
+        Five units on the ward: {wardSummary(UNIT_IDS.map((id) => statusLabel(ward.units[id])))}.{" "}
+        <span className={alertCount > 0 ? "ov-summary__alert" : "ov-summary__calm"}>
+          {alertCount > 0 ? `${alertCount} alert${alertCount > 1 ? "s" : ""} need attention.` : "No alerts."}
+        </span>
+      </p>
+
+      <section className="ov-unit" aria-labelledby="ov-unit-title">
+        <div className="ov-unit__head">
+          <div>
+            <h2 id="ov-unit-title">
+              {u.label} <span>{u.bed}</span>
+            </h2>
+            <p className={`ov-unit__state cond-${u.condition}`}>{statusLabel(u)}</p>
+            <p className="ov-unit__hint">{T.stageHint[u.stage]}</p>
           </div>
-          <p className="small muted">{T.stageHint[u.stage]}</p>
-          <div className="levels">
-            <div>
-              <div className="levels__row"><span>Mobile tank</span><span className="num">{fmtPct(tankPct(u))} · {fmtMl(u.tankMl)}</span></div>
-              <LevelBar value={tankPct(u)} label="Mobile tank" />
-            </div>
-            <div>
-              <div className="levels__row"><span>Dock buffer</span><span className="num">{fmtPct(bufferPct(u))} · {fmtMl(u.bufferMl)}</span></div>
-              <LevelBar value={bufferPct(u)} label="Dock buffer" />
-            </div>
-            <div>
-              <div className="levels__row"><span>Battery</span><span className="num">{fmtPct(u.batteryPct)}</span></div>
-              <LevelBar value={u.batteryPct} tone="battery" label="Battery" />
-            </div>
-          </div>
-          <dl className="fields fields--compact">
-            <div className="field"><dt>Location</dt><dd>{u.docked ? `${u.bed} dock` : navigationState(u)}</dd></div>
-            <div className="field"><dt>To {T.disposalPointName.toLowerCase()}</dt><dd className="num">{fmtM(u.distanceToDrain)}</dd></div>
-            <div className="field field--wide"><dt>Last event</dt><dd>{u.lastEvent}</dd></div>
-          </dl>
-          <div className="panel__actions">
-            <Link className="btn btn-primary btn-sm" to={{ pathname: "/connect/simulation", search }}>Open live simulation</Link>
-            <button type="button" className="btn btn-sm" onClick={() => simStore.forceTrip(unitId)} disabled={!(u.docked && (u.stage === "collecting" || u.stage === "transfer") && u.tankMl > 0)}>
+          <div className="ov-unit__actions">
+            <Link className="btn btn-primary" to={{ pathname: "/connect/simulation", search }}>
+              Open live simulation
+            </Link>
+            <button type="button" className="btn" onClick={() => simStore.forceTrip(unitId)} disabled={!canTrip}>
               Start disposal trip
             </button>
           </div>
-        </section>
-      </div>
-
-      <section aria-labelledby="fleet-sum">
-        <h2 id="fleet-sum" className="section-title">Fleet summary</h2>
-        <div className="fleet-cards">
-          {UNIT_IDS.map((id) => {
-            const x = ward.units[id];
-            return (
-              <button key={id} type="button" className={`card fleet-card${id === unitId ? " is-active" : ""} cond-${x.condition}`} onClick={() => select(id)} aria-pressed={id === unitId}>
-                <span className="fleet-card__name">{x.label}</span>
-                <span className="small muted">{x.bed}</span>
-                <span className="fleet-card__stage">{statusLabel(x)}</span>
-                <span className="small num">Tank {fmtPct(tankPct(x))} · Batt {fmtPct(x.batteryPct)}</span>
-              </button>
-            );
-          })}
         </div>
-        <p className="small muted">
-          One shared disposal point: only one unit leaves its dock at a time. {ward.queue.length > 0 ? `Waiting: ${ward.queue.map((q) => ward.units[q].label).join(", ")}.` : ""}
-        </p>
+
+        <div className="ov-metrics">
+          <div className="ov-metric">
+            <span className="ov-metric__label">Mobile tank</span>
+            <span className="ov-metric__value num">{fmtPct(tankPct(u))}</span>
+            <span className="ov-metric__sub num">{fmtMl(u.tankMl)}</span>
+            <LevelBar value={tankPct(u)} label="Mobile tank" />
+          </div>
+          <div className="ov-metric">
+            <span className="ov-metric__label">Dock buffer</span>
+            <span className="ov-metric__value num">{fmtPct(bufferPct(u))}</span>
+            <span className="ov-metric__sub num">{fmtMl(u.bufferMl)}</span>
+            <LevelBar value={bufferPct(u)} label="Dock buffer" />
+          </div>
+          <div className="ov-metric">
+            <span className="ov-metric__label">Battery</span>
+            <span className="ov-metric__value num">{fmtPct(u.batteryPct)}</span>
+            <span className="ov-metric__sub">{u.docked ? "On dock" : "Away from dock"}</span>
+            <LevelBar value={u.batteryPct} tone="battery" label="Battery" />
+          </div>
+        </div>
+
+        <dl className="ov-facts">
+          <div><dt>Location</dt><dd>{u.docked ? `${u.bed} dock` : navigationState(u)}</dd></div>
+          <div><dt>To {T.disposalPointName.toLowerCase()}</dt><dd className="num">{fmtM(u.distanceToDrain)}</dd></div>
+          <div className="ov-facts__wide"><dt>Last event</dt><dd>{u.lastEvent}</dd></div>
+        </dl>
+        {ward.queue.length > 0 && (
+          <p className="small muted">Waiting for the shared disposal point: {ward.queue.map((q) => ward.units[q].label).join(", ")}.</p>
+        )}
       </section>
 
-      <div className="grid grid--2">
-        <section className="card panel" aria-labelledby="ov-alerts">
-          <div className="panel__head">
+      <div className="ov-columns">
+        <section aria-labelledby="ov-alerts">
+          <div className="ov-columns__head">
             <h2 id="ov-alerts">Alerts</h2>
-            <Link to={{ pathname: "/connect/alerts", search }} className="small">All alerts</Link>
+            <Link to={{ pathname: "/connect/alerts", search }}>All alerts</Link>
           </div>
-          <AlertsList alerts={activeAlerts} onAck={simStore.acknowledge} empty="No active alerts." />
+          <AlertsList alerts={activeAlerts} onAck={simStore.acknowledge} empty="Nothing needs attention." />
         </section>
-        <section className="card panel" aria-labelledby="ov-activity">
-          <div className="panel__head">
+        <section aria-labelledby="ov-activity">
+          <div className="ov-columns__head">
             <h2 id="ov-activity">{u.label} activity</h2>
-            <Link to={{ pathname: "/connect/activity", search }} className="small">Full log</Link>
+            <Link to={{ pathname: "/connect/activity", search }}>Full log</Link>
           </div>
           <ActivityTimeline entries={unitLog} />
         </section>

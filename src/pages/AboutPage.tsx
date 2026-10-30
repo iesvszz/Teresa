@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Disclaimer } from "../components/Disclaimer";
-import { STATUS_TODAY } from "../content/public";
+import { PAPER_TITLE, STATUS_TODAY } from "../content/public";
+
+const TEAM = ["Iesvs Immanuel AJ", "Tatwin Shelian A", "Pauline Samyuktha R", "Karthickeyan SP"];
 
 export default function AboutPage() {
   return (
@@ -27,13 +29,16 @@ export default function AboutPage() {
           <p>Not yet done:</p>
           <ul>{STATUS_TODAY.notYet.map((s) => <li key={s}>{s}</li>)}</ul>
           <h2>Team</h2>
-          <div className="placeholder">
-            <strong>[Placeholder — to be added]</strong> Team members and roles.
-          </div>
+          <p>The authors of the paper <em>{PAPER_TITLE}</em>:</p>
+          <ul>
+            {TEAM.map((name) => <li key={name}>{name}</li>)}
+          </ul>
+          <p>Supervised by Dr. Shobana G.</p>
           <h2>Contact</h2>
-          <div className="placeholder">
-            <strong>[Placeholder — to be added]</strong> Project contact address.
-          </div>
+          <p>
+            For questions about TERESA, the paper or collaboration on the physical prototype, contact the first author, Iesvs Immanuel AJ. The paper was presented at a
+            national conference at Loyola College, Chennai, in 2026.
+          </p>
           <Disclaimer />
         </div>
       </section>

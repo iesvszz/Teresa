@@ -30,8 +30,8 @@ h4 {
   margin: 0 0 var(--space-3);
   font-weight: 600;
 }
-h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 500; }
-h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 500; }
+h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 300; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 300; letter-spacing: -0.025em; }
 h3 { font-size: 1.15rem; }
 h4 { font-size: 1rem; }
 p { margin: 0 0 var(--space-4); }
@@ -79,9 +79,10 @@ code, .mono { font-family: var(--mono); font-size: 0.9em; }
 }
 
 .eyebrow {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: var(--space-3);
@@ -99,7 +100,7 @@ code, .mono { font-family: var(--mono); font-size: 0.9em; }
   gap: 8px;
   min-height: 40px;
   padding: 0 16px;
-  border-radius: var(--radius-s);
+  border-radius: 999px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text);
@@ -114,12 +115,12 @@ code, .mono { font-family: var(--mono); font-size: 0.9em; }
 .btn:hover { border-color: var(--text); color: var(--text); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-primary { background: var(--text); border-color: var(--text); color: #fff; }
-.btn-primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-outline-accent { border-color: var(--accent); color: var(--accent); }
 .btn-outline-accent:hover { background: var(--accent-soft); color: var(--accent-ink); border-color: var(--accent-ink); }
 .btn-danger { border-color: var(--fault); color: var(--fault); }
 .btn-danger:hover, .btn-danger[aria-pressed="true"] { background: var(--fault); color: #fff; border-color: var(--fault); }
-.btn-sm { min-height: 32px; padding: 0 10px; font-size: 0.84rem; }
+.btn-sm { min-height: 34px; padding: 0 14px; font-size: 0.84rem; }
 .btn-ghost { border-color: transparent; background: transparent; }
 .btn-ghost:hover { background: var(--bg-alt); border-color: transparent; }
 
@@ -153,9 +154,10 @@ code, .mono { font-family: var(--mono); font-size: 0.9em; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 999px;
   padding: 3px 9px;

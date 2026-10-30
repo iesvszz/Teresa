@@ -1,8 +1,8 @@
 import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
-import { TeresaWordmark } from "../components/TeresaWordmark";
 import { HeroFallback } from "../three/HeroFallback";
 import { STATUS_TODAY } from "../content/public";
+import Folder from "../components/ui/Folder";
 
 const HeroRobot = lazy(() => import("../three/HeroRobot"));
 
@@ -14,92 +14,134 @@ const BLOCKS = [
 
 const FLOW = ["Collect at the bedside", "Transfer to the tank", "Detach and navigate", "Empty at the disposal point", "Return and dock", "UV-C stage"];
 
+const pad = (i: number) => String(i + 1).padStart(2, "0");
+
 export default function LandingPage() {
   return (
     <>
-      <section className="hero">
-        <div className="container hero__grid">
-          <div className="hero__copy">
-            <h1 className="sr-only">TERESA</h1>
-            <TeresaWordmark className="hero__wordmark" height={46} />
-            <p className="hero__tagline">Autonomous Urine Collection. Intelligent Self-Disposal.</p>
-            <p className="lead">
-              An assistive robotics concept designed to automate urine collection, disposal, and post-use treatment through a bedside dock and an autonomous mobile unit.
+      <section className="fx-hero">
+        <div className="container fx-hero__grid">
+          <div className="fx-hero__copy">
+            <p className="fx-label">Assistive robotics · Research prototype</p>
+            <h1 className="fx-display">
+              Autonomous urine collection.
+              <span className="fx-display__dim"> Intelligent self&#8209;disposal.</span>
+            </h1>
+            <p className="fx-lead">
+              An assistive robotics concept that automates urine collection, disposal and post-use treatment through a bedside dock and an autonomous mobile unit.
             </p>
-            <div className="hero__ctas">
-              <Link to="/explore" className="btn btn-primary">Explore TERESA</Link>
-              <Link to="/connect" className="btn">Open TERESA Connect</Link>
+            <div className="fx-actions">
+              <Link to="/explore" className="fx-btn fx-btn--solid">Explore TERESA</Link>
+              <Link to="/connect" className="fx-btn">Open TERESA Connect</Link>
             </div>
-            <p className="small muted hero__note">Research prototype concept · not a medical device</p>
           </div>
-          <div className="hero__visual">
-            <Suspense fallback={<HeroFallback />}>
-              <HeroRobot />
-            </Suspense>
-            <span className="hero__caption small muted">TERESA mobile unit — conceptual 3D model, not to scale</span>
+
+          <figure className="fx-frame fx-hero__visual">
+            <span className="fx-frame__corner fx-frame__corner--tl" aria-hidden="true" />
+            <span className="fx-frame__corner fx-frame__corner--tr" aria-hidden="true" />
+            <span className="fx-frame__corner fx-frame__corner--bl" aria-hidden="true" />
+            <span className="fx-frame__corner fx-frame__corner--br" aria-hidden="true" />
+            <div className="fx-hero__stage">
+              <Suspense fallback={<HeroFallback />}>
+                <HeroRobot />
+              </Suspense>
+            </div>
+            <figcaption className="fx-frame__caption">
+              <span>Mobile unit</span>
+              <span>Conceptual model · not to scale</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p className="container fx-hero__note">Research prototype concept — not a medical device.</p>
+      </section>
+
+      <section className="fx-section">
+        <div className="container">
+          <header className="fx-head">
+            <p className="fx-label">01 — The concept</p>
+            <h2 className="fx-title">Three jobs, one coordinated system.</h2>
+          </header>
+          <div className="fx-folder">
+            <Folder
+              label="TERESA"
+              color="#0a84ff"
+              theme="light"
+              size={1.7}
+              tilt={0.4}
+              draggable={false}
+              items={BLOCKS.map((b) => (
+                <article key={b.n} className="fx-page">
+                  <span className="fx-page__n">{b.n}</span>
+                  <h3 className="fx-page__title">{b.title}</h3>
+                  <p className="fx-page__text">{b.text}</p>
+                </article>
+              ))}
+            />
+            <p className="fx-folder__hint">Open the folder · click a page to read it</p>
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="fx-section fx-section--alt">
         <div className="container">
-          <p className="eyebrow">The concept</p>
-          <h2>Three jobs, one coordinated system</h2>
-          <div className="blocks">
-            {BLOCKS.map((b) => (
-              <article key={b.n} className="block">
-                <span className="block__n">{b.n}</span>
-                <h3>{b.title}</h3>
-                <p className="muted">{b.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--alt">
-        <div className="container">
-          <p className="eyebrow">How it works</p>
-          <h2>One cycle, bed to disposal point and back</h2>
-          <ol className="flow">
+          <header className="fx-head fx-head--split">
+            <div>
+              <p className="fx-label">02 — The cycle</p>
+              <h2 className="fx-title">Bed to disposal point, and back.</h2>
+            </div>
+            <Link to="/explore#how-it-works" className="fx-link">See the full workflow</Link>
+          </header>
+          <ol className="fx-track">
             {FLOW.map((f, i) => (
               <li key={f}>
-                <span className="flow__n num">{i + 1}</span>
-                <span>{f}</span>
+                <span className="fx-track__n">{pad(i)}</span>
+                <span className="fx-track__label">{f}</span>
               </li>
             ))}
           </ol>
-          <Link to="/explore#how-it-works" className="btn btn-sm">See the full workflow</Link>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container status-band">
-          <div>
-            <p className="eyebrow">Honest status</p>
-            <h2>Where TERESA is today</h2>
-            <p className="muted">TERESA is at the research stage. This is what exists and what does not.</p>
-          </div>
-          <div className="status-band__cols">
+      <section className="fx-section">
+        <div className="container">
+          <header className="fx-head">
+            <p className="fx-label">03 — Honest status</p>
+            <h2 className="fx-title">Where TERESA is today.</h2>
+          </header>
+          <div className="fx-ledger">
             <div>
-              <h3>Exists</h3>
-              <ul className="check-list">{STATUS_TODAY.exists.map((s) => <li key={s}>{s}</li>)}</ul>
+              <h3 className="fx-ledger__title">Exists</h3>
+              <ol className="fx-list">
+                {STATUS_TODAY.exists.map((s, i) => (
+                  <li key={s}><span className="fx-list__n">{pad(i)}</span>{s}</li>
+                ))}
+              </ol>
             </div>
             <div>
-              <h3>Not yet</h3>
-              <ul className="cross-list">{STATUS_TODAY.notYet.map((s) => <li key={s}>{s}</li>)}</ul>
+              <h3 className="fx-ledger__title">Not yet</h3>
+              <ol className="fx-list fx-list--dim">
+                {STATUS_TODAY.notYet.map((s, i) => (
+                  <li key={s}><span className="fx-list__n">{pad(i)}</span>{s}</li>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--dark">
-        <div className="container cta-band">
-          <div>
-            <h2>TERESA Connect</h2>
-            <p>Watch five simulated TERESA units work a hospital ward in real time: collection, travel to the disposal point, return, docking and the UV-C stage — with faults you can trigger yourself.</p>
+      <section className="fx-section fx-section--flush">
+        <div className="container">
+          <div className="fx-panel">
+            <div className="fx-panel__copy">
+              <p className="fx-label fx-label--light">04 — TERESA Connect</p>
+              <h2 className="fx-title">A live ward, simulated.</h2>
+              <p>
+                Five simulated TERESA units work a hospital ward in real time — collection, travel to the disposal point, return, docking and the UV-C stage — with faults you
+                can trigger yourself.
+              </p>
+            </div>
+            <Link to="/connect/simulation" className="fx-btn fx-btn--light">Open the live simulation</Link>
           </div>
-          <Link to="/connect/simulation" className="btn btn-light">Open the live simulation</Link>
         </div>
       </section>
     </>

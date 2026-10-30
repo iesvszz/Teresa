@@ -5,10 +5,10 @@ import { DOCK, ROBOT } from "../teresa/model-config";
 import { simStore } from "../teresa/store";
 import type { TeresaUnitId } from "../teresa/types";
 
-const HOUSING = "#ece9e3";
-const PANEL = "#e2ded6";
-const TOP = "#d6c9b5";
-const FLUID = "#d98e04";
+const HOUSING = "#ffffff";
+const PANEL = "#dbe8fb";
+const TOP = "#1e3a8a";
+const FLUID = "#0a84ff";
 
 /**
  * Fixed bedside outer dock (doubles as the bedside table).
@@ -50,7 +50,7 @@ export function BedsideDock({ unitId, x }: { unitId: TeresaUnitId; x: number }) 
       </mesh>
       <mesh position={[0, 0.011, 0]}>
         <boxGeometry args={[0.2, 0.004, 0.2]} />
-        <meshStandardMaterial ref={pad} color="#2b3a52" emissive="#2e7d4f" emissiveIntensity={0} roughness={0.6} />
+        <meshStandardMaterial ref={pad} color="#2b3a52" emissive="#2f6fd0" emissiveIntensity={0} roughness={0.6} />
       </mesh>
       {/* three-sided bay casing, open front (+Z) */}
       {[-1, 1].map((s) => (

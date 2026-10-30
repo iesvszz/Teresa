@@ -10,6 +10,7 @@ import { Ward } from "./Ward";
 import { ContextLossWatcher, RoomEnv, SceneBoundary } from "./SceneSupport";
 import { SceneFallback } from "./SceneFallback";
 import { hasWebGL, isLowPower } from "./webgl";
+import { LabelLayerContext } from "./labelLayer";
 import type { ModelMode, ViewMode } from "./types";
 
 export interface WardSceneProps {
@@ -20,6 +21,8 @@ export interface WardSceneProps {
   onSelectUnit: (id: TeresaUnitId) => void;
   height?: number | string;
   showLabels?: boolean;
+  /** False pauses rendering (e.g. while an expanded copy of the scene is open). */
+  active?: boolean;
 }
 
 /**
@@ -29,7 +32,7 @@ export interface WardSceneProps {
  * useFrame; it never owns workflow logic. React props change only when the
  * selection, view or model mode change.
  */
-export default function WardScene({ unitId, view, modelMode, onSelectUnit, height = 560, showLabels = true }: WardSceneProps) {
+export default function WardScene({ unitId, view, modelMode, onSelectUnit, height = 560, showLabels = true, active = true }: WardSceneProps) {
   const wrap = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   const [lost, setLost] = useState(false);
@@ -37,6 +40,7 @@ export default function WardScene({ unitId, view, modelMode, onSelectUnit, heigh
   const [lowPower] = useState(() => isLowPower());
   const reduced = usePrefersReducedMotion();
   const onLost = useCallback(() => setLost(true), []);
+  const [labelLayer, setLabelLayer] = useState<HTMLDivElement | null>(null);
 
   // Render only while on screen.
   useEffect(() => {
@@ -61,10 +65,11 @@ export default function WardScene({ unitId, view, modelMode, onSelectUnit, heigh
   return (
     <div ref={wrap} className="scene-wrap" style={{ height }}>
       <SceneBoundary fallback={fallback}>
+        <LabelLayerContext.Provider value={labelLayer}>
         <Canvas
           shadows
           dpr={lowPower ? [1, 1.25] : [1, 2]}
-          frameloop={visible ? "always" : "never"}
+          frameloop={visible && active ? "always" : "never"}
           camera={{ position: [1.2, 8.2, 8.6], fov: 38, near: 0.05, far: 80 }}
           gl={{ antialias: true, powerPreference: "high-performance" }}
           onPointerMissed={() => {
@@ -72,11 +77,11 @@ export default function WardScene({ unitId, view, modelMode, onSelectUnit, heigh
           }}
           aria-label="3D ward simulation"
         >
-          <color attach="background" args={["#f4f3ef"]} />
-          <fog attach="fog" args={["#f4f3ef", 18, 40]} />
+          <color attach="background" args={["#eef4fd"]} />
+          <fog attach="fog" args={["#eef4fd", 18, 40]} />
           <RoomEnv intensity={0.45} />
           <ContextLossWatcher onLost={onLost} />
-          <hemisphereLight args={["#ffffff", "#d9d4cc", 0.55]} />
+          <hemisphereLight args={["#ffffff", "#b9cff0", 0.6]} />
           <directionalLight
             position={[5, 10, 6]}
             intensity={1.35}
@@ -104,10 +109,12 @@ export default function WardScene({ unitId, view, modelMode, onSelectUnit, heigh
               onSelect={onSelectUnit}
             />
           ))}
-          <OrbitControls makeDefault enableDamping dampingFactor={0.08} minDistance={0.35} maxDistance={24} target={[0.4, 0, -1.7]} />
+          <OrbitControls makeDefault enableDamping dampingFactor={0.06} rotateSpeed={0.7} zoomSpeed={0.8} minDistance={0.35} maxDistance={24} target={[0.4, 0, -1.7]} />
           <CameraRig unitId={unitId} view={view} instant={reduced} />
         </Canvas>
+        </LabelLayerContext.Provider>
       </SceneBoundary>
+      <div ref={setLabelLayer} className="scene-labels" aria-hidden="true" />
     </div>
   );
 }
